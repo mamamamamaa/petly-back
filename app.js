@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const {HOST} = process.env;
 
 app.use(cors());
 app.use(logger(formatsLogger));
@@ -14,7 +15,7 @@ app.use(express.json());
 
 
 // ROUTES:
-// app.use()
+app.use("/", (req, res) => {});
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
