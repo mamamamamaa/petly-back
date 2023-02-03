@@ -11,6 +11,9 @@ const ownPetSchema = new Schema ({
     breed: {
         type: String,
     },
+    comments: {
+        type: String,
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'user',
