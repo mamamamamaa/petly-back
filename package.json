@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/mamamamamaa/petly-back#readme",
   "dependencies": {
+    "@joi/date": "^2.1.0",
     "@sendgrid/mail": "^7.7.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.33.0",
