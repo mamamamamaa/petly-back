@@ -2,16 +2,16 @@ const { model, Schema } = require("mongoose");
 
 const noticeSchema = new Schema(
   {
+    title: { type: String, required: true },
     photoUrl: { type: String },
     breed: { type: String },
     place: { type: String },
     dateOfBirth: { type: Date },
     name: { type: String },
-    sex: { type: String, enum: ["Male", "Female"], default: "Male" },
+    sex: { type: String, enum: ["Male", "Female"] },
     type: { type: String, enum: ["lost/found", "good-hands", "sell"] },
-    sell: { type: String || null },
-    favorite: { type: Boolean, default: false },
-    comments: { type: String },
+    price: { type: Number },
+    comments: { type: String, required: true },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
