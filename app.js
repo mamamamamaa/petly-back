@@ -15,7 +15,8 @@ app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
 
-app.use("/api/auth", authRouter);
+app.use("./routes/api/auth.js", authRouter);
+
 // ROUTES:
 app.use("/", (req, res) => {});
 
