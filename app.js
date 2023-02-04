@@ -15,6 +15,7 @@ const userRouter = require('./routes/api/userProfile');
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
+app.use(express.static("public"))
 
 // ROUTES:
 app.use("/api/auth", authRouter);
