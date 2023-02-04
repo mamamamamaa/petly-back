@@ -5,5 +5,5 @@ const HttpError = require("./HttpError");
 module.exports = {
   authenticate,
   validationBody,
-  HttpError,
+  HttpError
 };

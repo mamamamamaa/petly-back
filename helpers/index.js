@@ -3,5 +3,5 @@ const ctrlWrapper = require("./ctrlWrapper");
 
 module.exports = {
   handleMongooseError,
-  ctrlWrapper,
+  ctrlWrapper
 };

@@ -1,4 +1,5 @@
-const Joi = require("joi");
+const Joi = require("joi")
+  .extend(require('@joi/date'));
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
@@ -34,6 +35,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    birthday:{
+      type: String,
+    },
+    avatarURL: {
+      type: String,
+    },
     token: {
       type: String,
       default: null,
@@ -54,6 +61,8 @@ const joiSignupSchema = Joi.object({
   // TODO: add regexp for city field kinda "строка в форматі Місто, Область. Наприклад: Brovary, Kyiv або Akhtyrka, Sumy "
   city: Joi.string().required(),
   mobilePhone: Joi.string().pattern(mobilePhoneRegex).required(),
+  birthday: Joi.date().max('now').format('DD.MM.YYYY'),
+  avatarURL: Joi.string()
 });
 
 const joiLoginSchema = Joi.object({
