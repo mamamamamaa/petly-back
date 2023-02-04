@@ -18,6 +18,8 @@ app.use(express.json());
 // ROUTES:
 app.use("/api/auth", authRouter);
 
+app.use('/sell', require('./routes/api/sell'))
+
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
 
