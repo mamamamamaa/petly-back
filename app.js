@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
+const petsRouter = require('./routes/api/usersOwnPets');
+
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const { HOST } = process.env;
@@ -17,6 +19,7 @@ app.use(express.json());
 
 // ROUTES:
 app.use("/api/auth", authRouter);
+app.use("/api/pets", petsRouter);
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));

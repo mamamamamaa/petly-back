@@ -1,13 +1,13 @@
 const Joi = require("joi");
 
-const OwnPetCreateSchema = Joi.object({
+const ownPetCreateSchema = Joi.object({
     name: Joi.string()
         .min(2)
         .max(16)
         .alphanum(),
     dateOfBirth: Joi.date()
-        .max('now')
-        .format("DD.MM.YYYY"),
+        .max('now'),
+        // .format("DD.MM.YYYY"),
     breed: Joi.string()
         .min(2)
         .max(16),
@@ -17,5 +17,5 @@ const OwnPetCreateSchema = Joi.object({
 });
 
 module.exports = {
-    OwnPetCreateSchema,
+    ownPetCreateSchema,
 };
