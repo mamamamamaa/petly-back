@@ -9,12 +9,20 @@ const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const { HOST } = process.env;
 
+const authRouter = require("./routes/api/auth");
+const userRouter = require('./routes/api/userProfile');
+const newsRouter = require("./routes/api/news");
+
+
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
+app.use(express.static("public"))
 
 // ROUTES:
-app.use("/", (req, res) => {});
+app.use("/api/auth", authRouter);
+app.use("/api/userprofile", userRouter);
+app.use("/api/news", newsRouter);
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
@@ -24,8 +32,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const { message, status } = err;
+  const { status = 500, message = "Server error" } = err;
   res.status(status).json({ message });
 });
-
 module.exports = app;
