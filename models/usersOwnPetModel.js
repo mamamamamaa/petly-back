@@ -3,27 +3,21 @@ const { Schema, model } = require("mongoose");
 const ownPetSchema = new Schema ({
     name: {
         type: String,
-        required: [true, 'Set name for contact'],
+        required: [true, 'Set name for your pet'],
     },
-    dateOfBirth: {
-        type: Date,
-    },
-    breed: {
-        type: String,
-    },
-    comments: {
-        type: String,
-    },
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-        required: true,
-    },
+    dateOfBirth:  String,
+    breed:  String,
+    comments: String,
+    pictureURL: String,
+    // owner: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'user',
+    //     required: true,
+    // },
 },
     {versionKey: false}
 );
 
-const ownpet = model("ownpet", ownPetSchema);
+const OwnPet = model("ownpet", ownPetSchema);
 
-module.exports = {ownpet};
-
+module.exports = OwnPet;

@@ -1,4 +1,5 @@
-const Joi = require("joi");
+const Joi = require('joi')
+    .extend(require('@joi/date'));
 
 const ownPetCreateSchema = Joi.object({
     name: Joi.string()
@@ -6,8 +7,8 @@ const ownPetCreateSchema = Joi.object({
         .max(16)
         .alphanum(),
     dateOfBirth: Joi.date()
-        .max('now'),
-        // .format("DD.MM.YYYY"),
+        .max('now')
+        .format('DD.MM.YYYY'),
     breed: Joi.string()
         .min(2)
         .max(16),
