@@ -11,12 +11,17 @@ const { HOST } = process.env;
 
 const authRouter = require("./routes/api/auth");
 
+const friendsRouter = require("./routes/api/friends");
+
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
 
 // ROUTES:
 app.use("/api/auth", authRouter);
+
+
+app.use("/api/friends", friendsRouter);
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
