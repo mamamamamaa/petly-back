@@ -1,7 +1,7 @@
 const { ctrlWrapper } = require("../../helpers");
 const OwnPet = require("../../models/ownPet");
 const {ownPetCreateSchema} = require("../../schemas/usersOwnPet");
-const {cloudinary} = require('../../helpers');
+const cloudinary = require('../../utils/cloudinary');
 
 
 const addOwnPet = async (req, res) => {
@@ -9,8 +9,9 @@ const addOwnPet = async (req, res) => {
         if (validationResult.error) {
             return res.status(400).json({status: validationResult.error})
       };
-
+      
       const picture = await cloudinary.uploader.upload(req.file.path);
+
       const pictureURL =  picture.secure_url;
     const {_id: owner} = req.user;  
     const newOwnPet = await OwnPet.create({...req.body, owner, pictureURL});
