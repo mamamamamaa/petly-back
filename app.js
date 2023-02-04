@@ -18,11 +18,8 @@ app.use(logger(formatsLogger));
 app.use(express.json());
 
 // ROUTES:
-<<<<<<< HEAD
 app.use("/api/auth", authRouter);
-=======
-// app.use("/", (req, res) => {});
->>>>>>> dfe9f6f (.)
+
 app.use("/api/pets", petsRouter);
 
 mongoose.set("strictQuery", true);
