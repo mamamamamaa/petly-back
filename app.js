@@ -5,8 +5,6 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-const authRouter = require("./routes/api/auth");
-
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const {HOST} = process.env;
@@ -14,8 +12,6 @@ const {HOST} = process.env;
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
-
-app.use("./routes/api/auth.js", authRouter);
 
 // ROUTES:
 app.use("/", (req, res) => {});
