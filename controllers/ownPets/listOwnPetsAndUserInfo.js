@@ -6,9 +6,8 @@ const {ctrlWrapper} = require('../../helpers');
 const listOwnPets = async (req, res) => {
   
     // const ownPetsAndUser = await OwnPet.find().populate('user');
-        // const {_id: owner} = req.user; 
-        // const id = 63dd58f39ceda9d2a2de07a9
-    const ownPets = await OwnPet.find({});
+        const {_id: owner} = req.user; 
+    const ownPets = await OwnPet.find({owner});
     res.json(ownPets);
 };
 

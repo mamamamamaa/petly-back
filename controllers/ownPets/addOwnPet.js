@@ -8,8 +8,8 @@ const addOwnPet = async (req, res) => {
         if (validationResult.error) {
             return res.status(400).json({status: validationResult.error})
       };
-    // const {_id: owner} = req.user;  
-        const newOwnPet = await OwnPet.create({...req.body});
+    const {_id: owner} = req.user;  
+        const newOwnPet = await OwnPet.create({...req.body, owner});
         res.status(201).json(newOwnPet);
 };
 
