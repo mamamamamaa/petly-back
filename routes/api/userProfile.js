@@ -1,12 +1,12 @@
 const express = require('express');
-const ctrl = require("../../controllers/ownPets");
+const ctrl = require("../../controllers/userProfile");
 const {authenticate} = require('../../middlewares');
 
 const router = express.Router();
 
 router.use(authenticate);
 
-router.get('/', ctrl.listOwnPets);
+router.get('/', ctrl.getUserProfile);
 
 router.post('/', ctrl.addOwnPet);
 

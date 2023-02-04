@@ -1,6 +1,8 @@
 const { ctrlWrapper } = require("../../helpers");
-const OwnPet = require("../../models/usersOwnPetModel");
+const OwnPet = require("../../models/ownPet");
 const {ownPetCreateSchema} = require("../../schemas/usersOwnPet");
+// const fs = require('fs/promises');
+// const path = require('path');
 // const { HttpError } = require('../middlewares/HttpErrors');
 
 const addOwnPet = async (req, res) => {

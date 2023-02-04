@@ -1,5 +1,4 @@
-const OwnPet = require("../../models/usersOwnPetModel");
-// const {ownPetCreateSchema} = require("../../schemas/usersOwnPet");
+const OwnPet = require("../../models/ownPet");
 const { HttpError } = require('../../middlewares/HttpError');
 const { ctrlWrapper } = require("../../helpers");
 

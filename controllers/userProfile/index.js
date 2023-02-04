@@ -1,9 +1,9 @@
 const {addOwnPet} = require('./addOwnPet');
 const {deleteOwnPet} = require('./deleteOwnPet');
-const{listOwnPets} = require('./listOwnPetsAndUserInfo');
+const{getUserProfile} = require('./getUserProfile');
 
 module.exports = {
     addOwnPet,
     deleteOwnPet,
-    listOwnPets
+    getUserProfile
 };

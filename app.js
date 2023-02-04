@@ -10,7 +10,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const { HOST } = process.env;
 
 const authRouter = require("./routes/api/auth");
-const petsRouter = require('./routes/api/usersOwnPets');
+const userRouter = require('./routes/api/userProfile');
 
 app.use(cors());
 app.use(logger(formatsLogger));
@@ -19,7 +19,7 @@ app.use(express.json());
 // ROUTES:
 app.use("/api/auth", authRouter);
 
-app.use("/api/pets", petsRouter);
+app.use("/api/userprofile", userRouter);
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
