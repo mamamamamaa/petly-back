@@ -1,7 +1,6 @@
 const { Notice } = require("../../models/notice");
 
 const { HttpError } = require("../../middlewares");
-const { ctrlWrapper } = require("../../helpers");
 
 const getFavoriteNotices = async (req, res) => {
   const { _id } = req.user;
@@ -18,5 +17,5 @@ const getFavoriteNotices = async (req, res) => {
 };
 
 module.exports = {
-  getFavoriteNotices: ctrlWrapper(getFavoriteNotices),
+  getFavoriteNotices,
 };
