@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const authenticate = require("../../middlewares/authenticate");
+const authenticate = require("../middlewares/authenticate");
 const {
   getNoticeById,
   updateNoticeFavorite,

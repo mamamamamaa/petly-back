@@ -4,7 +4,7 @@ const {
   deleteNoticeById,
   paginateNotice,
   searchNoticeByTitleKeyword,
-} = require('../controllers/notice');
+} = require('../../controllers/notice');
 
 
 router.delete('/:id', authenticate, deleteNoticeById);

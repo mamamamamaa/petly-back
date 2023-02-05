@@ -1,7 +1,7 @@
 const { Notice } = require('../../models/Notice');
 
-const HttpError = require('../middlewares');
-const ctrlWrapper = require('../helpers');
+const HttpError = require('../../middlewares');
+const { ctrlWrapper } = require('../../helpers');
 
 const paginateNotice = async (req, res) => {
   const { page = 1, limit = 8 } = req.query;
