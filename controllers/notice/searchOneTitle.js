@@ -3,7 +3,7 @@ const { Notice } = require('../../models/Notice');
 const { HttpError } = require('../../middlewares');
 const { ctrlWrapper } = require('../../helpers');
 
-const searchNoticeByTitleKeyword = async (req, res) => {
+const searchOneTitle = async (req, res) => {
   const { title = null } = req.query;
   const result = await Notice.findOne({ title });
   if (!result) {
@@ -14,5 +14,5 @@ const searchNoticeByTitleKeyword = async (req, res) => {
 };
 
 module.exports = {
-  searchNoticeByTitleKeyword: ctrlWrapper(searchNoticeByTitleKeyword),
+  searchOneTitle: ctrlWrapper(searchOneTitle),
 };

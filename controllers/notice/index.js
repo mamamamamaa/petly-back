@@ -1,13 +1,11 @@
 const { deleteNoticeById } = require('./deleteNoticeById');
-const { searchNoticeByTitleKeyword } = require('./searchNoticeByTitleKeyword');
+const { searchOneTitle } = require('./searchOneTitle');
 const { paginateNotice } = require('./paginateNotice');
-const {
-  searchNoticeByTitleKeywordOverlapMany,
-} = require('./searchNoticeByTitleKeywordOverlapMany');
+const { searchManyTitles } = require('./searchManyTitles');
 
 module.exports = {
   deleteNoticeById,
-  searchNoticeByTitleKeyword,
+  searchOneTitle,
   paginateNotice,
-  searchNoticeByTitleKeywordOverlapMany,
+  searchManyTitles,
 };

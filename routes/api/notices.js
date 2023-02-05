@@ -3,14 +3,13 @@ const authenticate = require('../../middlewares/authenticate');
 const {
   deleteNoticeById,
   paginateNotice,
-  searchNoticeByTitleKeyword,
-  searchNoticeByTitleKeywordOverlapMany,
+  searchOneTitle,
+  searchManyTitles,
 } = require('../../controllers/notice');
-
 
 router.delete('/:id', authenticate, deleteNoticeById);
 router.get('/paginateNotice', paginateNotice);
-router.get('/searchNoticeByTitleKeyword', searchNoticeByTitleKeyword);
-router.get('/searchNoticeByTitleKeywordOverlapMany', searchNoticeByTitleKeywordOverlapMany);
+router.get('/searchOneTitle', searchOneTitle);
+router.get('/searchManyTitles', searchManyTitles);
 
 module.exports = router;
