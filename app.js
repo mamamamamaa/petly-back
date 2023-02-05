@@ -19,7 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 
 app.use('/sell', require('./routes/api/sell'));
-app.use('/inGoodHands', require('./routes/api/inGoodHands'));
+app.use('/goodHands', require('./routes/api/goodHands'));
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));

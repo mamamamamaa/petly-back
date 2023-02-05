@@ -15,7 +15,7 @@ const noticeSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      //required: true,
+      required: true,
     },
     cloudinary_id: {
       type: String,

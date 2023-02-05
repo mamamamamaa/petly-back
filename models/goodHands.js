@@ -13,7 +13,7 @@ const HandsSchema = new mongoose.Schema({
     type: String,
     },
     dateOfBirth: {
-        type: Date
+        type: String,
     },
     sex: {
         type: String,

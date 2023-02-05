@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const cloudinary = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
-const { Hands } = require("../../models/goodhands");
+const { Hands } = require("../../models/goodHands");
 
 router.post('/', upload.single('image'), async (req, res) => {
     try {
@@ -22,6 +22,15 @@ router.post('/', upload.single('image'), async (req, res) => {
      } catch (err) {
         console.log(err);
     }
+})
+
+    router.get("/", async (req, res) => {
+  try {
+    const goodHandAll = await Hands.find();
+    res.json(goodHandAll);
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 module.exports = router;
