@@ -11,7 +11,7 @@ const deleteNoticeById = async (req, res) => {
   }
 
   res.status(200).json({
-    message: `Delete ${result} with id ${id} success`,
+    message: `Delete with id ${id} success`,
   });
 };
 
