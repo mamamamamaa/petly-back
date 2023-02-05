@@ -2,6 +2,7 @@ const router = require("express").Router();
 const cloudinary = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 const { LostFound } = require("../../models/lostFound");
+const ctrl = require("../../controllers/lostFound");
 
 router.post('/', upload.single('image'), async (req, res) => {
     try {
@@ -27,13 +28,15 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 })
 
-    router.get("/", async (req, res) => {
-  try {
-    const lostFoundAll = await LostFound.find();
-    res.json(lostFoundAll);
-  } catch (err) {
-    console.log(err);
-  }
-})
+//     router.get("/", async (req, res) => {
+//   try {
+//     const lostFoundAll = await LostFound.find();
+//     res.json(lostFoundAll);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// })
+
+router.get("/", ctrl.lostFoundAll);
 
 module.exports = router;
