@@ -15,6 +15,8 @@ const newsRouter = require("./routes/api/news");
 const noticesRouter = require("./routes/api/notices");
 
 
+const friendsRouter = require("./routes/api/friends");
+
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
@@ -25,6 +27,9 @@ app.use("/api/auth", authRouter);
 app.use("/api/userprofile", userRouter);
 app.use("/api/news", newsRouter);
 app.use('/api/notices', noticesRouter);
+
+
+app.use("/api/friends", friendsRouter);
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
