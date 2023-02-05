@@ -1,4 +1,3 @@
-const { ctrlWrapper } = require("../../helpers");
 const { HttpError } = require('../../middlewares');
 const cloudinary = require('../../utils/cloudinary');
 const {User} = require('../../models/user');
@@ -20,6 +19,4 @@ const updateAvatar = async (req, res) => {
 };
 
 
-module.exports = {
-    updateAvatar: ctrlWrapper(updateAvatar)
-}
+module.exports = updateAvatar;
