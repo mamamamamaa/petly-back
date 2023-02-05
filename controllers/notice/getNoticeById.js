@@ -1,5 +1,5 @@
-const Notice = require("../../models/notice");
-const { ctrlWrapper } = require("../helpers")
+const {Notice} = require("../../models/Notice");
+const { ctrlWrapper } = require("../../helpers");
 
 const getNoticeById = async (req, res) => {
     const { noticeId } = req.params;

@@ -1,4 +1,5 @@
-const { Notice } = require("../../models/notice");
+const { Notice } = require("../../models/Notice");
+const { ctrlWrapper } = require('../../helpers');
 
 const deleteFavNotice = async (req, res) => {
   const { noticeId } = req.params;
@@ -9,5 +10,5 @@ const deleteFavNotice = async (req, res) => {
 };
 
 module.exports = {
-  deleteFavNotice,
+  deleteFavNotice: ctrlWrapper(deleteFavNotice),
 };
