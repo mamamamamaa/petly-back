@@ -20,6 +20,7 @@ app.use("/api/auth", authRouter);
 
 app.use('/sell', require('./routes/api/sell'));
 app.use('/goodHands', require('./routes/api/goodHands'));
+app.use('/lostFound', require('./routes/api/lostFound'));
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));

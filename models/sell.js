@@ -6,6 +6,9 @@ const SellSchema = new mongoose.Schema({
   photoUrl: {
     type: String,
     },
+    name: {
+        type: String
+    },
    breed: {
     type: String,
     },
@@ -14,7 +17,10 @@ const SellSchema = new mongoose.Schema({
     },
    price: {
     type: String,
-  },
+    },
+    comments: {
+        type: String
+    },
   cloudinary_id: {
     type: String,
   },

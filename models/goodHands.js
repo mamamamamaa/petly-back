@@ -5,7 +5,10 @@ const HandsSchema = new mongoose.Schema({
   },
   photoUrl: {
     type: String,
-    },
+  },
+  name: {
+    type: String
+  },
    breed: {
     type: String,
     },
@@ -18,10 +21,14 @@ const HandsSchema = new mongoose.Schema({
     sex: {
         type: String,
         enum: ["Male", "Female"]
-    },
+  },
+  comments: {
+    type: String
+  },
   cloudinary_id: {
     type: String,
   },
 });
+
 const Hands = mongoose.model("goodHands", HandsSchema)
 module.exports = {Hands};
