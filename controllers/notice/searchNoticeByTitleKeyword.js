@@ -4,14 +4,14 @@ const HttpError = require('../middlewares');
 const ctrlWrapper = require('../helpers');
 
 const searchNoticeByTitleKeyword = async (req, res) => {
-    const { title } = Notice.title;
-  const result = await Notice.find({ title });
+    const { title = null } = req.query;
+  const result = await Notice.findOne({ title });
   if (!result) {
     throw HttpError(404);
   }
 
   res.status(200).json({
-    message: `${result}`,
+    message: `${result} with ${title}`,
   });
 };
 
