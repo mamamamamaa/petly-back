@@ -12,6 +12,7 @@ const { HOST } = process.env;
 const authRouter = require("./routes/api/auth");
 const userRouter = require('./routes/api/userProfile');
 const newsRouter = require("./routes/api/news");
+const noticesRouter = require("./routes/api/notices");
 
 
 const friendsRouter = require("./routes/api/friends");
@@ -25,6 +26,7 @@ app.use(express.static("public"))
 app.use("/api/auth", authRouter);
 app.use("/api/userprofile", userRouter);
 app.use("/api/news", newsRouter);
+app.use('/api/notices', noticesRouter);
 
 
 app.use("/api/friends", friendsRouter);
