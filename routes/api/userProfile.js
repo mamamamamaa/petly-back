@@ -13,4 +13,6 @@ router.post('/', upload.single('pictureURL'), ctrl.addOwnPet);
 
 router.delete('/:ownPetId', ctrl.deleteOwnPet);
 
+router.patch('/avatar', upload.single('avatarURL'), ctrl.updateAvatar)
+
 module.exports = router;
