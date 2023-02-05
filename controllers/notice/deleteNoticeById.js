@@ -1,6 +1,6 @@
 const { Notice } = require('../../models/Notice');
 
-const HttpError = require('../../middlewares');
+const { HttpError } = require('../../middlewares');
 const { ctrlWrapper } = require('../../helpers');
 
 const deleteNoticeById = async (req, res) => {
