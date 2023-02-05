@@ -2,7 +2,7 @@ const router = require("express").Router();
 const cloudinary = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 const { Sell } = require("../../models/sell");
-
+const ctrl = require("../../controllers/sell");
 
 router.post('/', upload.single('image'), async (req, res) => {
     try {
@@ -27,14 +27,6 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 })
 
-router.get("/", async (req, res) => {
-  try {
-    const sellAll = await Sell.find();
-    res.json(sellAll);
-  } catch (err) {
-    console.log(err);
-  }
-});
-
+router.get("/", ctrl.sellAll);
 
 module.exports = router;

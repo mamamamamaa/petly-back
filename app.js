@@ -10,6 +10,9 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const { HOST } = process.env;
 
 const authRouter = require("./routes/api/auth");
+const sellRouter = require('./routes/api/sell');
+const goodHandsRouter = require('./routes/api/goodHands');
+const lostFoundRouter = require('./routes/api/lostFound');
 
 app.use(cors());
 app.use(logger(formatsLogger));
@@ -17,10 +20,9 @@ app.use(express.json());
 
 // ROUTES:
 app.use("/api/auth", authRouter);
-
-app.use('/sell', require('./routes/api/sell'));
-app.use('/goodHands', require('./routes/api/goodHands'));
-app.use('/lostFound', require('./routes/api/lostFound'));
+app.use('/sell', sellRouter);
+app.use('/goodHands', goodHandsRouter);
+app.use('/lostFound', lostFoundRouter);
 
 mongoose.set("strictQuery", true);
 mongoose.connect(HOST, () => console.log("DB is connect"));
