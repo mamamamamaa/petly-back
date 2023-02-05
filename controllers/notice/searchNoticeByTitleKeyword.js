@@ -10,9 +10,7 @@ const searchNoticeByTitleKeyword = async (req, res) => {
     throw HttpError(404);
   }
 
-  res.status(200).json({
-    message: `${result} with ${title}`,
-  });
+  res.status(200).json(result);
 };
 
 module.exports = {
