@@ -10,7 +10,7 @@ const getNews = async (req, res) => {
     const allNews = await News.find(condition, "-createdAt -updatedAt", {skip, limit: Number(limit)}).sort({ date: -1 });
 
     if(allNews.length === 0){
-        throw HttpError(404);
+        throw HttpError(404, `There are no news that contain information about: ${query}`);
     }
 
     res.json({
