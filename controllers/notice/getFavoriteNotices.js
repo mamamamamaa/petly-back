@@ -1,5 +1,8 @@
 const { Notice } = require("../../models/notice");
 
+const { HttpError } = require("../../middlewares");
+const { ctrlWrapper } = require("../../helpers");
+
 const getFavoriteNotices = async (req, res) => {
   const { _id } = req.user;
   const { favorite } = req.query;
@@ -7,9 +10,13 @@ const getFavoriteNotices = async (req, res) => {
   const favNotices = await Notice.find({ owner: _id, favorite }).populate(
     "owner"
   );
+  if (!favNotices) {
+    throw HttpError(404);
+  }
+
   res.json(favNotices);
 };
 
 module.exports = {
-  getFavoriteNotices,
+  getFavoriteNotices: ctrlWrapper(getFavoriteNotices),
 };
