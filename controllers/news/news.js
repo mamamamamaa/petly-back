@@ -1,3 +1,4 @@
+
 const axios = require("axios");
 
 const { X_RAPID_API_HOST, X_RAPID_API_URL, X_RAPID_API_KEY } = process.env; 
@@ -35,7 +36,6 @@ const getNews = async (req, res) => {
     } catch (error) {
         console.log(error);
     }    
-
 };
 
 module.exports = getNews;
