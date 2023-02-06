@@ -23,6 +23,6 @@ router.patch("/:noticeId/favorite", authenticate, updateNoticeFavorite);
 router.delete("/:id", authenticate, deleteNoticeById);
 router.delete("/:noticeId/favorite", authenticate, deleteFavNotice);
 
-router.post("/", upload.single('photoUrl'), authenticate, addNotice);
+router.post("/", authenticate, upload.single("photoUrl"), addNotice);
 
 module.exports = router;
