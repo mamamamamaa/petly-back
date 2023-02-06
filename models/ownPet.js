@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { handleMongooseError } = require("../helpers");
 
 const ownPetSchema = new Schema ({
     name: {
@@ -17,6 +18,8 @@ const ownPetSchema = new Schema ({
 },
     {versionKey: false}
 );
+
+ownPetSchema.post("save", handleMongooseError);
 
 const OwnPet = model("ownpet", ownPetSchema);
 
