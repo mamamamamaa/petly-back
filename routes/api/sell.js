@@ -2,6 +2,7 @@ const router = require("express").Router();
 const cloudinary = require("../../utils/cloudinary");
 const upload = require("../../utils/multer");
 const { Sell } = require("../../models/sell");
+const { Notice } = require("../../models/notice");
 const ctrl = require("../../controllers/sell");
 
 router.post('/', upload.single('image'), async (req, res) => {
@@ -9,7 +10,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         const result = await cloudinary.uploader.upload(req.file.path)
         
         // create instance of sell
-        let sell = new Sell({
+        let sell = new Sell ({
             title: req.body.title,
             photoUrl: result.secure_url,
             name: req.body.name,
@@ -18,6 +19,7 @@ router.post('/', upload.single('image'), async (req, res) => {
             price: req.body.price,
             comments: req.body.comments,
             cloudinary_id: result.public_id,
+            type: req.body.type,
         });
         // save sell
         await sell.save();
@@ -28,5 +30,6 @@ router.post('/', upload.single('image'), async (req, res) => {
 })
 
 router.get("/", ctrl.sellAll);
+
 
 module.exports = router;

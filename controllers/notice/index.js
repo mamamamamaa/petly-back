@@ -7,6 +7,7 @@ const { updateNoticeFavorite } = require("./updateNoticeFavorite");
 const { searchOneTitle } = require("./searchOneTitle");
 const { paginateNotice } = require("./paginateNotice");
 const { searchManyTitles } = require("./searchManyTitles");
+const { addNotice } = require("./addNotice");
 
 module.exports = {
   deleteFavNotice: ctrlWrapper(deleteFavNotice),
@@ -17,4 +18,5 @@ module.exports = {
   searchOneTitle: ctrlWrapper(searchOneTitle),
   paginateNotice: ctrlWrapper(paginateNotice),
   searchManyTitles: ctrlWrapper(searchManyTitles),
+  addNotice: ctrlWrapper(addNotice),
 };
