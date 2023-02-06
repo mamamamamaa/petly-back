@@ -12,10 +12,6 @@ const {
   updateNoticeFavorite,
   getFavoriteNotices,
   deleteFavNotice,
-  deleteNoticeById,
-  paginateNotice,
-  searchOneTitle,
-  searchManyTitles,
 } = require("../../controllers/notice");
 
 router.get("/paginateNotice", paginateNotice);

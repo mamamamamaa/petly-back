@@ -1,4 +1,4 @@
-const {Notice} = require("../../models/notice");
+const { Notice } = require("../../models/notice");
 
 const getNoticeById = async (req, res) => {
   const { noticeId } = req.params;
