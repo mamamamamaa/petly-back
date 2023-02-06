@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const authenticate = require("../../middlewares/authenticate");
 const {
-  deleteNoticeById,
-  paginateNotice,
-  searchOneTitle,
-  searchManyTitles,
   getNoticeById,
   updateNoticeFavorite,
   getFavoriteNotices,
   deleteFavNotice,
+  deleteNoticeById,
+  paginateNotice,
+  searchOneTitle,
+  searchManyTitles,
 } = require("../../controllers/notice");
 
 router.get("/paginateNotice", paginateNotice);
