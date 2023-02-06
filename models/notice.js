@@ -10,8 +10,8 @@ const noticeSchema = new Schema(
     name: { type: String },
     sex: { type: String, enum: ["Male", "Female"] },
     type: { type: String, enum: ["lost/found", "good-hands", "sell"] },
-    price: { type: Number },  
-    comments: { type: String, required: true },
+    price: { type: Number },
+    comments: { type: String },
     favorite: {
       type: Boolean,
       default: false,
@@ -24,7 +24,7 @@ const noticeSchema = new Schema(
     },
     cloudinary_id: {
       type: String,
-    }
+    },
   },
   { versionKey: false, timestamps: true }
 );

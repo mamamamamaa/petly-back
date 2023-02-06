@@ -1,11 +1,10 @@
-const { Notice } = require('../../models/Notice');
-
-const { HttpError } = require('../../middlewares');
-const { ctrlWrapper } = require('../../helpers');
+const { Notice } = require("../../models/notice");
+const { HttpError } = require("../../middlewares");
 
 const searchOneTitle = async (req, res) => {
   const { title = null } = req.query;
   const result = await Notice.findOne({ title });
+
   if (!result) {
     throw HttpError(404);
   }
@@ -14,5 +13,5 @@ const searchOneTitle = async (req, res) => {
 };
 
 module.exports = {
-  searchOneTitle: ctrlWrapper(searchOneTitle),
+  searchOneTitle,
 };

@@ -61,8 +61,6 @@ const joiSignupSchema = Joi.object({
   // TODO: add regexp for city field kinda "строка в форматі Місто, Область. Наприклад: Brovary, Kyiv або Akhtyrka, Sumy "
   city: Joi.string().required(),
   mobilePhone: Joi.string().pattern(mobilePhoneRegex).required(),
-  birthday: Joi.date().max('now').format('DD.MM.YYYY'),
-  avatarURL: Joi.string()
 });
 
 const joiLoginSchema = Joi.object({
@@ -70,9 +68,20 @@ const joiLoginSchema = Joi.object({
   email: Joi.string().pattern(emailRegex).required(),
 });
 
+const joiUpdateUserSchema = Joi.object({
+  password: Joi.string().min(6).max(32).pattern(passwordRegex),
+  email: Joi.string().pattern(emailRegex),
+  name: Joi.string(),
+  city: Joi.string(),
+  mobilePhone: Joi.string().pattern(mobilePhoneRegex),
+  birthday: Joi.date().max('now').format('DD.MM.YYYY'),
+  avatarURL: Joi.string()
+});
+
 const schemas = {
   joiSignupSchema,
   joiLoginSchema,
+  joiUpdateUserSchema
 };
 
 const User = model("user", userSchema);

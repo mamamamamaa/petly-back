@@ -1,7 +1,6 @@
-const { Notice } = require('../../models/Notice');
+const { Notice } = require("../../models/notice");
 
-const { HttpError } = require('../../middlewares');
-const { ctrlWrapper } = require('../../helpers');
+const { HttpError } = require("../../middlewares");
 
 const deleteNoticeById = async (req, res) => {
   const { id } = req.params;
@@ -16,5 +15,5 @@ const deleteNoticeById = async (req, res) => {
 };
 
 module.exports = {
-  deleteNoticeById: ctrlWrapper(deleteNoticeById),
+  deleteNoticeById,
 };

@@ -1,11 +1,20 @@
-const { deleteNoticeById } = require('./deleteNoticeById');
-const { searchOneTitle } = require('./searchOneTitle');
-const { paginateNotice } = require('./paginateNotice');
-const { searchManyTitles } = require('./searchManyTitles');
+const { ctrlWrapper } = require("../../helpers");
+const { deleteNoticeById } = require("./deleteNoticeById");
+const { deleteFavNotice } = require("./deleteFavNotice");
+const { getNoticeById } = require("./getNoticeById");
+const { getFavoriteNotices } = require("./getFavoriteNotices");
+const { updateNoticeFavorite } = require("./updateNoticeFavorite");
+const { searchOneTitle } = require("./searchOneTitle");
+const { paginateNotice } = require("./paginateNotice");
+const { searchManyTitles } = require("./searchManyTitles");
 
 module.exports = {
-  deleteNoticeById,
-  searchOneTitle,
-  paginateNotice,
-  searchManyTitles,
+  deleteFavNotice: ctrlWrapper(deleteFavNotice),
+  deleteNoticeById: ctrlWrapper(deleteNoticeById),
+  getNoticeById: ctrlWrapper(getNoticeById),
+  getFavoriteNotices: ctrlWrapper(getFavoriteNotices),
+  updateNoticeFavorite: ctrlWrapper(updateNoticeFavorite),
+  searchOneTitle: ctrlWrapper(searchOneTitle),
+  paginateNotice: ctrlWrapper(paginateNotice),
+  searchManyTitles: ctrlWrapper(searchManyTitles),
 };

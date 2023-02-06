@@ -1,8 +1,9 @@
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../middlewares");
-const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = process.env;
+
 const register = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -20,7 +21,7 @@ const register = async (req, res, next) => {
     id: newUser._id,
   };
 
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '23h' });
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
 
   await User.findByIdAndUpdate(newUser._id, { token });
 
@@ -29,7 +30,6 @@ const register = async (req, res, next) => {
     name: newUser.name,
     email: newUser.email,
   });
-
 };
 
 module.exports = register;
