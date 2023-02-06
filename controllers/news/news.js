@@ -1,21 +1,41 @@
-const { HttpError } = require("../../middlewares");
-const News = require("../../models/news");
+const axios = require("axios");
 
-const getNews = async (req, res) => {
-    
-    const {page = 1, limit = 6, query = ''} = req.query;
-    const skip = (page - 1) * limit;
-    const condition = query === '' ? {} : { description: {$regex: query} };
+const { X_RAPID_API_HOST, X_RAPID_API_URL, X_RAPID_API_KEY } = process.env; 
 
-    const allNews = await News.find(condition, "-createdAt -updatedAt", {skip, limit: Number(limit)}).sort({ date: -1 });
+const getNews = async (req, res) => {    
+    const {page = 1, limit = 6, query = 'animals'} = req.query;
 
+    const options = {
+    method: 'GET',
+    url: X_RAPID_API_URL,
+    params: {
+        q: query,
+        pageNumber: page,
+        pageSize: limit,
+        autoCorrect: 'true',
+        fromPublishedDate: 'null',
+        toPublishedDate: 'null'
+    },
+    headers: {
+        'X-RapidAPI-Key': X_RAPID_API_KEY,
+        'X-RapidAPI-Host': X_RAPID_API_HOST
+    }
+    };
+
+
+    try {
+        const dynamicNews = await axios.request(options);
     res.json({
         status: "success",
         code: 200,
         data: {
-            result: allNews
+            result: dynamicNews.data
         }
     });
+    } catch (error) {
+        console.log(error);
+    }    
+
 };
 
 module.exports = getNews;
