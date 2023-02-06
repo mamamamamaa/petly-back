@@ -4,12 +4,6 @@ const { HttpError } = require('../../middlewares');
 const deleteFavNotice = async (req, res) => {
   const { noticeId } = req.params;
   const { _id: userId } = req.user;
-  
-  const userExists = await Notice.exists({ _id: userId });
-
-  if (!userExists) {
-    throw HttpError(404);
-  }
 
   const deletedNotice = await Notice.findByIdAndUpdate(noticeId, {
     $pull: {
