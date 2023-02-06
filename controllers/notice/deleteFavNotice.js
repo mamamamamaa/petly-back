@@ -1,12 +1,18 @@
-const { Notice } = require("../../models/Notice");
-const { ctrlWrapper } = require('../../helpers');
+const { Notice } = require("../../models/notice");
+const { HttpError } = require("../../middlewares");
 
 const deleteFavNotice = async (req, res) => {
   const { noticeId } = req.params;
-  const { favorite } = req.body;
 
-  const deletedNotice = await Notice.findByIdAndRemove(noticeId, { favorite });
-  res.json(deletedNotice);
+  const deletedNotice = await Notice.findByIdAndUpdate(noticeId, {
+    favorite: false,
+  });
+
+  if (!deletedNotice) {
+    throw HttpError(404);
+  }
+
+  res.status(200).json({ message: `Deleted ${noticeId} from favorite` });
 };
 
 module.exports = {

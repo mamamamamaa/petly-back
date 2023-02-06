@@ -11,12 +11,19 @@ const noticeSchema = new Schema(
     sex: { type: String, enum: ["Male", "Female"] },
     type: { type: String, enum: ["lost/found", "good-hands", "sell"] },
     price: { type: Number },
-    comments: { type: String, required: true },
-    favorite: [String],
+    comments: { type: String },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
+
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
       required: true,
+    },
+    cloudinary_id: {
+      type: String,
     },
   },
   { versionKey: false, timestamps: true }

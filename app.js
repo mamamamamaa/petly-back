@@ -10,24 +10,30 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 const { HOST } = process.env;
 
 const authRouter = require("./routes/api/auth");
-const userRouter = require('./routes/api/userProfile');
+
+const sellRouter = require("./routes/api/sell");
+const goodHandsRouter = require("./routes/api/goodHands");
+const lostFoundRouter = require("./routes/api/lostFound");
+const userRouter = require("./routes/api/userProfile");
 const newsRouter = require("./routes/api/news");
 const noticesRouter = require("./routes/api/notices");
-
-
 const friendsRouter = require("./routes/api/friends");
 
 app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
-app.use(express.static("public"))
+app.use(express.static("public"));
 
 // ROUTES:
 app.use("/api/auth", authRouter);
+
+app.use("/sell", sellRouter);
+app.use("/goodHands", goodHandsRouter);
+app.use("/lostFound", lostFoundRouter);
+
 app.use("/api/userprofile", userRouter);
 app.use("/api/news", newsRouter);
-app.use('/api/notices', noticesRouter);
-
+// app.use("/api/notices", noticesRouter);
 
 app.use("/api/friends", friendsRouter);
 
