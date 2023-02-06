@@ -12,7 +12,10 @@ const noticeSchema = new Schema(
     type: { type: String, enum: ["lost/found", "good-hands", "sell"] },
     price: { type: Number },
     comments: { type: String },
-    favorite: [String],
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
 
     owner: {
       type: Schema.Types.ObjectId,
