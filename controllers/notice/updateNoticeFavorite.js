@@ -36,20 +36,20 @@ const updateNoticeFavorite = async (req, res) => {
     }
 }
 
-  const result = await Notice.findByIdAndUpdate({ _id: noticeId }, value, {
-    returnOriginal: false,
-  });
+//   const result = await Notice.findByIdAndUpdate({ _id: noticeId }, value, {
+//     returnOriginal: false,
+//   });
 
-  if (result) {
-    res.json(result);
-  } else {
-    res.status(404).json({
-      status: "error",
-      code: 404,
-      message: `Not found contact id: ${noticeId}`,
-      data: "Not Found",
-    });
-  }
-};
+//   if (result) {
+//     res.json(result);
+//   } else {
+//     res.status(404).json({
+//       status: "error",
+//       code: 404,
+//       message: `Not found contact id: ${noticeId}`,
+//       data: "Not Found",
+//     });
+//   }
+// };
 
-module.exports = { updateNoticeFavorite };
+module.exports = { updateNoticeFavorite: ctrlWrapper(updateNoticeFavorite) };
