@@ -1,18 +1,29 @@
-const { Notice } = require("../../models/notice");
-const { HttpError } = require("../../middlewares");
+const { Notice } = require('../../models/notice');
+const { HttpError } = require('../../middlewares');
 
 const deleteFavNotice = async (req, res) => {
   const { noticeId } = req.params;
+  const { _id: userId } = req.user;
+  
+  const userExists = await Notice.exists({ _id: userId });
+
+  if (!userExists) {
+    throw HttpError(404);
+  }
 
   const deletedNotice = await Notice.findByIdAndUpdate(noticeId, {
-    favorite: false,
+    $pull: {
+      favorite: userId,
+    },
   });
 
   if (!deletedNotice) {
     throw HttpError(404);
   }
 
-  res.status(200).json({ message: `Deleted ${noticeId} from favorite` });
+  res.status(200).json({
+    message: `Deleted userId ${userId} from favorite array of noticeId ${noticeId}`,
+  });
 };
 
 module.exports = {
