@@ -1,6 +1,6 @@
 // const schemaUpdateNoticeFavorite = require("../../schemas/updateNoticeFavorite");
-const {Notice} = require("../../models/Notice");
-const { ctrlWrapper } = require("../../helpers")
+const {Notice} = require("../../models/notice");
+
 
 const updateNoticeFavorite = async (req, res) => {
     const { noticeId } = req.params;
@@ -52,4 +52,4 @@ const updateNoticeFavorite = async (req, res) => {
 //   }
 // };
 
-module.exports = { updateNoticeFavorite: ctrlWrapper(updateNoticeFavorite) };
+module.exports = { updateNoticeFavorite };

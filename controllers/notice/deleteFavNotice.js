@@ -16,5 +16,5 @@ const deleteFavNotice = async (req, res) => {
 };
 
 module.exports = {
-  deleteFavNotice: ctrlWrapper(deleteFavNotice),
+  deleteFavNotice,
 };
