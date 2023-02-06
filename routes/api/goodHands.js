@@ -19,6 +19,7 @@ router.post('/', upload.single('image'), async (req, res) => {
             comments: req.body.comments,
             sex: req.body.sex,
             cloudinary_id: result.public_id,
+            type: req.body.type,
         });
         // save sell
         await goodHands.save();

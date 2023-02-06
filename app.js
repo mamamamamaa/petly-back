@@ -33,7 +33,7 @@ app.use("/lostFound", lostFoundRouter);
 
 app.use("/api/userprofile", userRouter);
 app.use("/api/news", newsRouter);
-// app.use("/api/notices", noticesRouter);
+app.use("/api/notices", noticesRouter);
 
 app.use("/api/friends", friendsRouter);
 

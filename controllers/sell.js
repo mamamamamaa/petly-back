@@ -1,6 +1,7 @@
 const { ctrlWrapper } = require("../helpers");
 const { Sell } = require("../models/sell");
 
+
 const sellAll = async (req, res) => {
   const result = await Sell.find();
   if (result) {
@@ -13,4 +14,5 @@ const sellAll = async (req, res) => {
   }
 };
 
-module.exports = { sellAll: ctrlWrapper(sellAll) };
+
+module.exports = {sellAll: ctrlWrapper(sellAll) };

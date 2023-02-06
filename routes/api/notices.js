@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const authenticate = require("../../middlewares/authenticate");
+const upload = require("../../utils/multer");
+
 const {
+  addNotice,
   deleteNoticeById,
   paginateNotice,
   searchOneTitle,
@@ -19,5 +22,7 @@ router.get("/:noticeId/favorite", authenticate, getFavoriteNotices);
 router.patch("/:noticeId/favorite", authenticate, updateNoticeFavorite);
 router.delete("/:id", authenticate, deleteNoticeById);
 router.delete("/:noticeId/favorite", authenticate, deleteFavNotice);
+
+router.post("/", upload.single('photoUrl'), authenticate, addNotice);
 
 module.exports = router;
