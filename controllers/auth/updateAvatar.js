@@ -17,6 +17,4 @@ const updateAvatar = async (req, res) => {
   res.status(200).json({ avatarURL });
 };
 
-module.exports = {
-  updateAvatar,
-};
+module.exports = updateAvatar;
