@@ -1,5 +1,4 @@
-const Joi = require("joi")
-  .extend(require('@joi/date'));
+const Joi = require("joi").extend(require("@joi/date"));
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
@@ -35,13 +34,17 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    birthday:{
+    birthday: {
       type: String,
     },
     avatarURL: {
       type: String,
     },
-    token: {
+    accessToken: {
+      type: String,
+      default: null,
+    },
+    refreshToken: {
       type: String,
       default: null,
     },
@@ -74,14 +77,19 @@ const joiUpdateUserSchema = Joi.object({
   name: Joi.string(),
   city: Joi.string(),
   mobilePhone: Joi.string().pattern(mobilePhoneRegex),
-  birthday: Joi.date().max('now').format('DD.MM.YYYY'),
-  avatarURL: Joi.string()
+  birthday: Joi.date().max("now").format("DD.MM.YYYY"),
+  avatarURL: Joi.string(),
+});
+
+const joiRefreshTokenSchema = Joi.object({
+  refreshToken: Joi.string().required(),
 });
 
 const schemas = {
   joiSignupSchema,
   joiLoginSchema,
-  joiUpdateUserSchema
+  joiUpdateUserSchema,
+  joiRefreshTokenSchema,
 };
 
 const User = model("user", userSchema);
