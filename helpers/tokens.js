@@ -8,7 +8,7 @@ const generateAccessToken = (user) => {
   };
 
   return jwt.sign(payload, ACCESS_TOKEN_SECRET_KEY, {
-    expiresIn: "10m",
+    expiresIn: "23h",
   });
 };
 

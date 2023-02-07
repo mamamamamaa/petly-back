@@ -3,12 +3,17 @@ const { Notice } = require("../../models/notice");
 const { HttpError } = require("../../middlewares");
 
 const getFavoriteNotices = async (req, res) => {
-  const { _id } = req.user;
-  const { favorite } = req.query;
+  const { page = 1, limit = 20, favorite } = req.query;
+  const skip = (page - 1) * limit;
 
-  const favNotices = await Notice.find({ owner: _id, favorite }).populate(
-    "owner"
+  const favNotices = await Notice.find(
+    { favorite },
+    "-createdAt -updatedAt",
+    { skip, limit }
   );
+  res.json(favNotices)
+
+
   if (!favNotices) {
     throw HttpError(404);
   }
