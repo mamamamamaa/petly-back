@@ -1,13 +1,16 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "version": "1.0.1",
+    "title": "REST API for Petly-project",
+    "description": "Back-end endpoints for Petly-project"
   },
   "servers": [
     {
-      "url": "http://localhost:3001"
+      "url": "https://petly-server.onrender.com"
+    },
+    {
+      "url": "http://localhost:3001/"
     }
   ],
   "consumes": ["application/json", "multipart/form-data"],
@@ -78,7 +81,7 @@
         "description": "User log-in",
         "parameters": [],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -112,7 +115,8 @@
     "/api/auth/current": {
       "get": {
         "tags": ["Auth"],
-        "description": "",
+        "description": "Get user info",
+        "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "name": "authorization",
@@ -142,7 +146,7 @@
     "/api/auth/logout": {
       "get": {
         "tags": ["Auth"],
-        "description": "",
+        "description": "Logout user",
         "security": [{ "Bearer": [] }],
         "parameters": [
           {
@@ -163,172 +167,80 @@
         }
       }
     },
-    "/sell": {
-      "post": {
-        "description": "Add notice for sell",
-        "parameters": [],
+    "/api/auth/update": {
+      "put": {
+        "tags": ["Auth"],
+        "description": "Change user info",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "example": "any"
-                  },
-                  "name": {
-                    "example": "any"
-                  },
-                  "breed": {
-                    "example": "any"
-                  },
-                  "place": {
-                    "example": "any"
-                  },
-                  "price": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  }
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserResponse"
                 }
               }
             }
           }
         }
-      },
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
       }
     },
-    "/goodHands": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
+    "/api/auth/avatar": {
+      "patch": {
+        "tags": ["User info and user`s pets"],
+        "description": "Update user's afatar",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
           }
-        },
+        ],
         "requestBody": {
+          "description": "Update user's avatar",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "example": "any"
-                  },
-                  "name": {
-                    "example": "any"
-                  },
-                  "breed": {
-                    "example": "any"
-                  },
-                  "place": {
-                    "example": "any"
-                  },
-                  "dateOfBirth": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  },
-                  "sex": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/UpdateAvatarRequest"
               }
             }
           }
-        }
-      },
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/lostFound": {
-      "post": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "example": "any"
-                  },
-                  "name": {
-                    "example": "any"
-                  },
-                  "breed": {
-                    "example": "any"
-                  },
-                  "place": {
-                    "example": "any"
-                  },
-                  "dateOfBirth": {
-                    "example": "any"
-                  },
-                  "comments": {
-                    "example": "any"
-                  },
-                  "sex": {
-                    "example": "any"
-                  }
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserAvatarResponse"
                 }
               }
             }
-          }
-        }
-      },
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "401": {
+            "description": "Not authorized"
           }
         }
       }
     },
-    "/api/userprofile": {
+    "/api/userprofile/": {
       "get": {
         "tags": ["User info and user`s pets"],
         "description": "Get user info and user`s pets",
+        "security": [{ "Bearer": [] }],
         "parameters": [
           {
             "name": "authorization",
@@ -358,6 +270,7 @@
         }
       },
       "post": {
+        "security": [{ "Bearer": [] }],
         "tags": ["User info and user`s pets"],
         "description": "Add user`s pet from Database",
         "parameters": [
@@ -402,6 +315,7 @@
     "/api/userprofile/{ownPetId}": {
       "delete": {
         "tags": ["User info and user`s pets"],
+        "security": [{ "Bearer": [] }],
         "description": "Delete user`s pet from Database",
         "parameters": [
           {
@@ -441,46 +355,6 @@
           },
           "404": {
             "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/userprofile/avatar": {
-      "patch": {
-        "tags": ["User info and user`s pets"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Update user's avatar",
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAvatarRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateUserAvatarResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not authorized"
           }
         }
       }
@@ -539,6 +413,213 @@
         }
       }
     },
+    "/api/notices/paginateNotice": {
+      "get": {
+        "tags": ["Notice"],
+        "description": "Get notice by type with paginate",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "number of items to skip",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max records to return",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["lost/found", "good-hands", "sell"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/notices/searchOneTitle": {
+      "get": {
+        "tags": ["Notice"],
+        "description": "Get notice by title",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/notices/searchManyTitles": {
+      "get": {
+        "tags": ["Notice"],
+        "description": "Get notices by title",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/notices/{noticeId}": {
+      "get": {
+        "tags": ["Notice"],
+        "description": "Get notice by id",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/api/notices/{noticeId}/favorite": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/notices/{id}": {
       "delete": {
         "description": "",
@@ -562,25 +643,59 @@
         "responses": {}
       }
     },
-    "/api/notices/paginateNotice": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/notices/searchOneTitle": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/notices/searchManyTitles": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
+    "/api/notices/": {
+      "post": {
+        "tags": ["Notice"],
+        "security": [{ "Bearer": [] }],
+        "description": "Add notice",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Notice info",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNoticeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "title": "He loves me",
+                  "photoUrl": "https://res.cloudinary.com/dmwntn6pl/image/upload/v1675720183/zplitctzaseo94uavefl.png",
+                  "breed": "Haski",
+                  "place": "Rfgh",
+                  "dateOfBirth": "2021-12-31T22:00:00.000Z",
+                  "name": "Frank",
+                  "sex": "male",
+                  "type": "lost/found",
+                  "comments": "sdfafefd",
+                  "favorite": false,
+                  "owner": "63e02449b81d6c15ede0cd6",
+                  "_id": "63e175b65b81cd31d2304a5"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid notice type"
+          }
+        }
       }
     },
     "/api/friends/": {
@@ -869,6 +984,101 @@
             "type": "string",
             "description": "Pet's id from Database",
             "format": "uuid"
+          }
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id from backend",
+            "format": "uuid"
+          },
+          "password": {
+            "example": "$2a$10$n6y49/m2HoNGox8E82NugOcxd37cNs3nbIz/TSXVC36"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Stefania"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city & region",
+            "example": "Akhtyrka, Sumy "
+          },
+          "mobile phone": {
+            "type": "string",
+            "description": "User's mobile phone",
+            "example": "+380671234567"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "5ADF12S65FDS6A5F5SAD1..."
+          }
+        }
+      },
+      "AddNoticeRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title notice",
+            "example": "Sell dog"
+          },
+          "place": {
+            "type": "string",
+            "description": "City, Region",
+            "example": "Akhtyrka, Sumy "
+          },
+          "name": {
+            "type": "string",
+            "description": "Seller's name",
+            "example": "Frank"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Pet's dateOfBirth",
+            "example": "01.01.2023"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "Haski"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "enum": ["male", "female"],
+            "example": "male"
+          },
+          "type": {
+            "type": "string",
+            "description": "Notice type",
+            "enum": ["lost/found", "good-hands", "sell"],
+            "example": "sell"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet`s value (ONLY FOR SELL TYPE NOTICE)",
+            "example": "50$"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Any comments for notice",
+            "example": "adfasfasfsa"
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "Pet's avatar",
+            "format": "binary"
           }
         }
       }
