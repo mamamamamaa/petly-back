@@ -1,27 +1,16 @@
-const { Notice } = require("../../models/notice");
-const schemaUpdateNoticeFavorite = require("../../schemas/updateNoticeFavorite");
+const { User } = require("../../models/user");
 
-const updateNoticeFavorite = async (req, res) => {
+const addNoticeFavorite = async (req, res) => {
   const { noticeId } = req.params;
-  const { favorite = false } = req.body;
+  const { _id: user } = req.user;
 
-  if (!favorite) {
-    return res.status(400).json({
-      status: "error",
-      code: 400,
-      message: "missing field favorite",
-    });
-  }
-
-  const { error, value } = schemaUpdateNoticeFavorite.validate({ favorite });
-
-  if (error) {
-    return res.status(400).json({ message: "missing required name field" });
-  }
-
-  const result = await Notice.findByIdAndUpdate({ _id: noticeId }, value, {
-    returnOriginal: false,
-  });
+  const result = await User.findByIdAndUpdate(user, {
+    $push: {
+      favorite: noticeId
+    }
+  }, {
+    new: true
+  })
 
   if (result) {
     res.json(result);
@@ -35,4 +24,29 @@ const updateNoticeFavorite = async (req, res) => {
   }
 };
 
-module.exports = { updateNoticeFavorite };
+const delNoticeFavorite = async (req, res) => {
+  const { noticeId } = req.params;
+  const { _id: user } = req.user;
+
+  const result = await User.findByIdAndUpdate(user, {
+    $pull: {
+      favorite: noticeId
+    }
+  })
+
+  if (result) {
+    res.json(result);
+  } else {
+    res.status(404).json({
+      status: "error",
+      code: 404,
+      message: `Not found notice id: ${noticeId}`,
+      data: "Not Found",
+    });
+  }
+}
+
+module.exports = {
+  addNoticeFavorite,
+  delNoticeFavorite
+};
