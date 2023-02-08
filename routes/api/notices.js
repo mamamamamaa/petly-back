@@ -9,7 +9,8 @@ const {
   searchOneTitle,
   searchManyTitles,
   getNoticeById,
-  updateNoticeFavorite,
+  addNoticeFavorite,
+  delNoticeFavorite,
   getFavoriteNotices,
 } = require("../../controllers/notice");
 
@@ -18,7 +19,8 @@ router.get("/searchOneTitle", searchOneTitle);
 router.get("/searchManyTitles", searchManyTitles);
 router.get("/:noticeId", getNoticeById);
 router.get("/", authenticate, getFavoriteNotices);
-router.patch("/favorite/:noticeId", authenticate, updateNoticeFavorite);
+router.patch("/addfavorite/:noticeId", authenticate, addNoticeFavorite);
+router.patch("/delfavorite/:noticeId", authenticate, delNoticeFavorite);
 router.delete("/:noticeId", authenticate, deleteNoticeById);
 router.post("/", authenticate, upload.single("photoUrl"), addNotice);
 

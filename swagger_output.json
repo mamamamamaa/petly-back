@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.2",
+    "version": "1.0.3",
     "title": "REST API for Petly-project",
     "description": "Back-end endpoints for Petly-project"
   },
@@ -114,11 +114,40 @@
     },
     "/api/auth/token": {
       "post": {
-        "description": "",
-        "parameters": [],
+        "tags": ["Auth"],
+        "description": "Update access token",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "User's token"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "description": "Refresh token",
+                      "example": "  5a1ds1f5sa15sc5x1c..."
+                    },
+                    "expiresIn": {
+                      "type": "number",
+                      "description": "Time to token's life",
+                      "example": "5ADF12S65FDS6A5F5SAD1..."
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -128,7 +157,9 @@
                 "type": "object",
                 "properties": {
                   "refreshToken": {
-                    "example": "any"
+                    "type": "string",
+                    "description": "Refresh token",
+                    "example": "  5a1ds1f5sa15sc5x1c..."
                   }
                 }
               }
@@ -637,16 +668,6 @@
         "description": "Get favorite notices",
         "parameters": [
           {
-            "name": "favorite",
-            "in": "query",
-            "description": "query request for favorite notice",
-            "required": true,
-            "schema": {
-              "type": "boolean",
-              "format": "boolean"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "description": "number of items to skip",
@@ -680,10 +701,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object"
-                  }
+                  "$ref": "#/components/schemas/FavoriteNoticeResponse"
                 }
               }
             }
@@ -749,11 +767,11 @@
         }
       }
     },
-    "/api/notices/favorite/{noticeId}": {
+    "/api/notices/addfavorite/{noticeId}": {
       "patch": {
         "tags": ["Notice"],
         "security": [{ "Bearer": [] }],
-        "description": "Add and remove to favorite notice",
+        "description": "Add to favorite notice",
         "parameters": [
           {
             "name": "noticeId",
@@ -773,17 +791,50 @@
             }
           }
         ],
-        "requestBody": {
-          "description": "Body for change favorite's status",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FavoriteRequest"
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeIdResponse"
+                }
               }
             }
+          },
+          "400": {
+            "description": "Missing required name field"
+          },
+          "404": {
+            "description": "Not found notice id: ${noticeId}"
           }
-        },
+        }
+      }
+    },
+    "/api/notices/delfavorite/{noticeId}": {
+      "patch": {
+        "tags": ["Notice"],
+        "security": [{ "Bearer": [] }],
+        "description": "Delete to favorite notice",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -874,9 +925,19 @@
       "RegistrationResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "accessToken": {
             "type": "string",
             "description": "User's token",
+            "example": "5ADF12S65FDS6A5F5SAD1..."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "User's token",
+            "example": "5ADF12S65FDS6A5F5SAD1..."
+          },
+          "expiresIn": {
+            "type": "number",
+            "description": "Time to token's life",
             "example": "5ADF12S65FDS6A5F5SAD1..."
           },
           "name": {
@@ -910,9 +971,19 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "accessToken": {
             "type": "string",
             "description": "User's token",
+            "example": "5ADF12S65FDS6A5F5SAD1..."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "User's token",
+            "example": "5ADF12S65FDS6A5F5SAD1..."
+          },
+          "expiresIn": {
+            "type": "number",
+            "description": "Time to token's life",
             "example": "5ADF12S65FDS6A5F5SAD1..."
           },
           "name": {
@@ -976,10 +1047,25 @@
                 "description": "User's mobile phone",
                 "example": "+380671234567"
               },
-              "token": {
+              "accessToken": {
                 "type": "string",
                 "description": "User's token",
                 "example": "5ADF12S65FDS6A5F5SAD1..."
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "User's token",
+                "example": "5ADF12S65FDS6A5F5SAD1..."
+              },
+              "expiresIn": {
+                "type": "number",
+                "description": "Time to token's life",
+                "example": "5ADF12S65FDS6A5F5SAD1..."
+              },
+              "favorite": {
+                "type": "array",
+                "description": "Array favorite notices",
+                "format": "array"
               }
             }
           },
@@ -998,6 +1084,64 @@
                   "description": "User's city & region",
                   "example": "Akhtyrka, Sumy "
                 }
+              }
+            }
+          }
+        }
+      },
+      "FavoriteNoticeResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's id from backend",
+                "format": "uuid"
+              },
+              "password": {
+                "example": "$2a$10$n6y49/m2HoNGox8E82NugOcxd37cNs3nbIz/TSXVC36"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "Stefania"
+              },
+              "city": {
+                "type": "string",
+                "description": "User's city & region",
+                "example": "Akhtyrka, Sumy "
+              },
+              "mobile phone": {
+                "type": "string",
+                "description": "User's mobile phone",
+                "example": "+380671234567"
+              },
+              "accessToken": {
+                "type": "string",
+                "description": "User's token",
+                "example": "5ADF12S65FDS6A5F5SAD1..."
+              },
+              "refreshToken": {
+                "type": "string",
+                "description": "User's token",
+                "example": "5ADF12S65FDS6A5F5SAD1..."
+              },
+              "expiresIn": {
+                "type": "number",
+                "description": "Time to token's life",
+                "example": "5ADF12S65FDS6A5F5SAD1..."
+              },
+              "favorite": {
+                "type": "array",
+                "description": "Array favorite notices",
+                "format": "array"
               }
             }
           }
