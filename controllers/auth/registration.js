@@ -1,7 +1,13 @@
 const bcrypt = require("bcryptjs");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../middlewares");
-const { generateAccessToken, generateRefreshToken } = require("../../helpers");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  calculateExpiresTime,
+} = require("../../helpers");
+
+const { EXPIRES_IN } = process.env;
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -21,9 +27,12 @@ const register = async (req, res, next) => {
 
   await User.findByIdAndUpdate(newUser._id, { accessToken, refreshToken });
 
+  const expiresIn = calculateExpiresTime(EXPIRES_IN);
+
   res.status(201).json({
     accessToken,
     refreshToken,
+    expiresIn,
     name: newUser.name,
     email: newUser.email,
   });

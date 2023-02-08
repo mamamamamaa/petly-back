@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const { HttpError } = require("../../middlewares");
 const { User } = require("../../models/user");
-const { generateAccessToken } = require("../../helpers");
-const { REFRESH_TOKEN_SECRET_KEY } = process.env;
+const { generateAccessToken, calculateExpiresTime } = require("../../helpers");
+const { REFRESH_TOKEN_SECRET_KEY, EXPIRES_IN } = process.env;
 
 const refresh = async (req, res, next) => {
   const { refreshToken } = req.body;
@@ -31,7 +31,9 @@ const refresh = async (req, res, next) => {
 
   await User.findByIdAndUpdate(user._id, { accessToken });
 
-  res.json({ accessToken });
+  const expiresIn = calculateExpiresTime(EXPIRES_IN);
+
+  res.json({ accessToken, expiresIn });
 };
 
 module.exports = refresh;
