@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "title": "REST API for Petly-project",
     "description": "Back-end endpoints for Petly-project"
   },
@@ -112,6 +112,31 @@
         }
       }
     },
+    "/api/auth/token": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refreshToken": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/current": {
       "get": {
         "tags": ["Auth"],
@@ -176,6 +201,7 @@
           {
             "name": "authorization",
             "in": "header",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -204,6 +230,7 @@
           {
             "name": "authorization",
             "in": "header",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -277,6 +304,8 @@
           {
             "name": "authorization",
             "in": "header",
+            "type": "string",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -329,6 +358,8 @@
           {
             "name": "authorization",
             "in": "header",
+            "type": "string",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -422,7 +453,6 @@
             "name": "page",
             "in": "query",
             "description": "number of items to skip",
-            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -432,7 +462,6 @@
             "name": "limit",
             "in": "query",
             "description": "max records to return",
-            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -544,7 +573,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/NoticeIdResponse"
                 }
               }
             }
@@ -553,53 +582,11 @@
             "description": "Not found"
           }
         }
-      }
-    },
-    "/api/notices/{noticeId}/favorite": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "noticeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
-      },
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "noticeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
       },
       "delete": {
-        "description": "",
+        "tags": ["Notice"],
+        "security": [{ "Bearer": [] }],
+        "description": "Delete notice by id",
         "parameters": [
           {
             "name": "noticeId",
@@ -612,38 +599,100 @@
           {
             "name": "authorization",
             "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/notices/{id}": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
+            "type": "string",
             "required": true,
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Successful operation",
+                      "example": "Delete with id 63e2a8d1d4dc9fa9a3699b39 success"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/api/notices/": {
+      "get": {
+        "tags": ["Notice"],
+        "security": [{ "Bearer": [] }],
+        "description": "Get favorite notices",
+        "parameters": [
+          {
+            "name": "favorite",
+            "in": "query",
+            "description": "query request for favorite notice",
+            "required": true,
+            "schema": {
+              "type": "boolean",
+              "format": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "number of items to skip",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max records to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
       "post": {
         "tags": ["Notice"],
         "security": [{ "Bearer": [] }],
@@ -652,6 +701,8 @@
           {
             "name": "authorization",
             "in": "header",
+            "type": "string",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -694,6 +745,61 @@
           },
           "400": {
             "description": "Invalid notice type"
+          }
+        }
+      }
+    },
+    "/api/notices/favorite/{noticeId}": {
+      "patch": {
+        "tags": ["Notice"],
+        "security": [{ "Bearer": [] }],
+        "description": "Add and remove to favorite notice",
+        "parameters": [
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Body for change favorite's status",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required name field"
+          },
+          "404": {
+            "description": "Not found notice id: ${noticeId}"
           }
         }
       }
@@ -1079,6 +1185,79 @@
             "type": "string",
             "description": "Pet's avatar",
             "format": "binary"
+          }
+        }
+      },
+      "NoticeIdResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title notice",
+            "example": "Sell dog"
+          },
+          "place": {
+            "type": "string",
+            "description": "City, Region",
+            "example": "Akhtyrka, Sumy "
+          },
+          "name": {
+            "type": "string",
+            "description": "Seller's name",
+            "example": "Frank"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Pet's dateOfBirth",
+            "example": "01.01.2023"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Pet's breed",
+            "example": "Haski"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "enum": ["male", "female"],
+            "example": "male"
+          },
+          "type": {
+            "type": "string",
+            "description": "Notice type",
+            "enum": ["lost/found", "good-hands", "sell"],
+            "example": "sell"
+          },
+          "price": {
+            "type": "string",
+            "description": "Pet`s value (ONLY FOR SELL TYPE NOTICE)",
+            "example": "50$"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Any comments for notice",
+            "example": "adfasfasfsa"
+          },
+          "photoUrl": {
+            "type": "string",
+            "description": "Pet's avatar",
+            "format": "binary"
+          },
+          "favorite": {
+            "type": "boolean",
+            "description": "This notice if favorite?",
+            "format": "boolean"
+          }
+        }
+      },
+      "FavoriteRequest": {
+        "type": "object",
+        "required": ["favorite"],
+        "properties": {
+          "favorite": {
+            "type": "boolean",
+            "description": "favorite",
+            "format": "boolean"
           }
         }
       }

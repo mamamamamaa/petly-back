@@ -11,18 +11,15 @@ const {
   getNoticeById,
   updateNoticeFavorite,
   getFavoriteNotices,
-  deleteFavNotice,
 } = require("../../controllers/notice");
 
 router.get("/paginateNotice", paginateNotice);
 router.get("/searchOneTitle", searchOneTitle);
 router.get("/searchManyTitles", searchManyTitles);
 router.get("/:noticeId", getNoticeById);
-router.get("/:noticeId/favorite", authenticate, getFavoriteNotices);
-router.patch("/:noticeId/favorite", authenticate, updateNoticeFavorite);
-router.delete("/:id", authenticate, deleteNoticeById);
-router.delete("/:noticeId/favorite", authenticate, deleteFavNotice);
-
+router.get("/", authenticate, getFavoriteNotices);
+router.patch("/favorite/:noticeId", authenticate, updateNoticeFavorite);
+router.delete("/:noticeId", authenticate, deleteNoticeById);
 router.post("/", authenticate, upload.single("photoUrl"), addNotice);
 
 module.exports = router;

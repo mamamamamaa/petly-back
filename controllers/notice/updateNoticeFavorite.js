@@ -29,7 +29,7 @@ const updateNoticeFavorite = async (req, res) => {
     res.status(404).json({
       status: "error",
       code: 404,
-      message: `Not found contact id: ${noticeId}`,
+      message: `Not found notice id: ${noticeId}`,
       data: "Not Found",
     });
   }
