@@ -25,6 +25,11 @@ const login = async (req, res, next) => {
     return;
   }
 
+  if (!user.verify) {
+    next(409, "You are not verified");
+    return;
+  }
+
   const accessToken = generateAccessToken(user);
 
   const refreshToken = generateRefreshToken(user);

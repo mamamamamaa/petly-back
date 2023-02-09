@@ -30,11 +30,6 @@ app.use(express.static("public"));
 // ROUTES:
 app.use("/api/auth", authRouter);
 
-// app.use("/sell", sellRouter);
-// app.use("/goodHands", goodHandsRouter);
-// app.use("/lostFound", lostFoundRouter);
-
-
 app.use("/api/userprofile", userRouter);
 app.use("/api/news", newsRouter);
 app.use("/api/notices", noticesRouter);

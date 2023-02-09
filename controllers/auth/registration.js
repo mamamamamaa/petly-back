@@ -1,13 +1,9 @@
 const bcrypt = require("bcryptjs");
+const { sgMail } = require("../../helpers");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../middlewares");
-const {
-  generateAccessToken,
-  generateRefreshToken,
-  calculateExpiresTime,
-} = require("../../helpers");
-
-const { EXPIRES_IN } = process.env;
+const { verificationMessage } = require("../../helpers");
+const { generateAccessToken, generateRefreshToken } = require("../../helpers");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
@@ -20,21 +16,18 @@ const register = async (req, res, next) => {
 
   const hashPassword = await bcrypt.hash(password, 10);
 
-  const newUser = await User.create({ ...req.body, password: hashPassword });
+  const { verifyMessage, verificationToken } = verificationMessage(email);
 
-  const accessToken = generateAccessToken(newUser);
-  const refreshToken = generateRefreshToken(newUser);
+  await sgMail.send(verifyMessage);
 
-  await User.findByIdAndUpdate(newUser._id, { accessToken, refreshToken });
-
-  const expiresIn = calculateExpiresTime(EXPIRES_IN);
+  await User.create({
+    ...req.body,
+    password: hashPassword,
+    verificationToken,
+  });
 
   res.status(201).json({
-    accessToken,
-    refreshToken,
-    expiresIn,
-    name: newUser.name,
-    email: newUser.email,
+    message: "Verify your account by email",
   });
 };
 

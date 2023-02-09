@@ -6,6 +6,8 @@ const getCurrent = require("./getCurrent");
 const updateUser = require("./updateUser");
 const updateAvatar = require("./updateAvatar");
 const refresh = require("./refresh");
+const reverify = require("./reverify");
+const verify = require("./verify");
 
 module.exports = {
   login: ctrlWrapper(login),
@@ -15,4 +17,6 @@ module.exports = {
   updateUser: ctrlWrapper(updateUser),
   updateAvatar: ctrlWrapper(updateAvatar),
   refresh: ctrlWrapper(refresh),
+  reverify: ctrlWrapper(reverify),
+  verify: ctrlWrapper(verify),
 };

@@ -1,14 +1,7 @@
 const Joi = require("joi").extend(require("@joi/date"));
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
-
-const emailRegex =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-// const passwordRegex = /[^a-zA-Z0-9\s]/;
-const passwordRegex = /^\S*$/;
-
-const mobilePhoneRegex = /^\+?3?8?(0\d{2}\d{3}\d{2}\d{2})$/;
+const { emailRegex, passwordRegex, mobilePhoneRegex } = require("../helpers");
 
 const userSchema = new Schema(
   {
@@ -48,10 +41,20 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-    favorite: [{
-      type: Schema.Types.ObjectId,
-      ref: "notice"
-    }]
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
+    favorite: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "notice",
+      },
+    ],
   },
   {
     versionKey: false,
