@@ -676,6 +676,54 @@
       "get": {
         "tags": ["Notice"],
         "security": [{ "Bearer": [] }],
+        "description": "Get user notices",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "number of items to skip",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "max records to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notices/favorite": {
+      "get": {
+        "tags": ["Notice"],
+        "security": [{ "Bearer": [] }],
         "description": "Get favorite notices",
         "parameters": [
           {
@@ -719,61 +767,6 @@
           },
           "404": {
             "description": "Not found"
-          }
-        }
-      },
-      "post": {
-        "tags": ["Notice"],
-        "security": [{ "Bearer": [] }],
-        "description": "Add notice",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Notice info",
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/AddNoticeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                },
-                "example": {
-                  "title": "He loves me",
-                  "photoUrl": "https://res.cloudinary.com/dmwntn6pl/image/upload/v1675720183/zplitctzaseo94uavefl.png",
-                  "breed": "Haski",
-                  "place": "Rfgh",
-                  "dateOfBirth": "2021-12-31T22:00:00.000Z",
-                  "name": "Frank",
-                  "sex": "male",
-                  "type": "lost/found",
-                  "comments": "sdfafefd",
-                  "favorite": false,
-                  "owner": "63e02449b81d6c15ede0cd6",
-                  "_id": "63e175b65b81cd31d2304a5"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid notice type"
           }
         }
       }

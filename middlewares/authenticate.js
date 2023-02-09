@@ -23,6 +23,7 @@ const authenticate = async (req, res, next) => {
       accessToken !== String(user.accessToken)
     ) {
       next(HttpError(401));
+      return;
     }
 
     req.user = user;
