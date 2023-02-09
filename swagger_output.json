@@ -225,7 +225,7 @@
     },
     "/api/auth/update": {
       "put": {
-        "tags": ["Auth"],
+        "tags": ["User info and user`s pets"],
         "description": "Change user info",
         "security": [{ "Bearer": [] }],
         "parameters": [
@@ -238,6 +238,17 @@
             }
           }
         ],
+        "requestBody": {
+          "description": "Update user info",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -1267,11 +1278,6 @@
             "type": "string",
             "description": "User's mobilePhone",
             "example": "+380671234567"
-          },
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "5ADF12S65FDS6A5F5SAD1..."
           }
         }
       },
@@ -1402,6 +1408,46 @@
             "type": "boolean",
             "description": "favorite",
             "format": "boolean"
+          }
+        }
+      },
+      "UpdateRequest": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2a$10$n6y49/m2HoNGox8E82NugOcxd37cNs3nbIz/TSXVC36"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Stefania"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city & region",
+            "example": "Akhtyrka, Sumy "
+          },
+          "mobilePhone": {
+            "type": "string",
+            "description": "User's mobilePhone",
+            "example": "+380671234567"
+          },
+          "birthday": {
+            "type": "date",
+            "description": "User's birthday",
+            "example": "01.01.2021"
+          },
+          "avatarURL": {
+            "type": "string",
+            "description": "User's avatar",
+            "format": "binary"
           }
         }
       }
