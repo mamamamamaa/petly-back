@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.3",
+    "version": "1.0.4",
     "title": "REST API for Petly-project",
     "description": "Back-end endpoints for Petly-project"
   },
@@ -910,14 +910,14 @@
             "description": "User's name",
             "example": "Stefania"
           },
-          "city/region": {
+          "city": {
             "type": "string",
             "description": "User's city & region",
             "example": "Akhtyrka, Sumy "
           },
-          "mobile phone": {
+          "mobilePhone": {
             "type": "string",
-            "description": "User's mobile phone",
+            "description": "User's mobilePhone",
             "example": "+380671234567"
           }
         }
@@ -1042,9 +1042,9 @@
                 "description": "User's city & region",
                 "example": "Akhtyrka, Sumy "
               },
-              "mobile phone": {
+              "mobilePhone": {
                 "type": "string",
-                "description": "User's mobile phone",
+                "description": "User's mobilePhone",
                 "example": "+380671234567"
               },
               "accessToken": {
@@ -1118,9 +1118,9 @@
                 "description": "User's city & region",
                 "example": "Akhtyrka, Sumy "
               },
-              "mobile phone": {
+              "mobilePhone": {
                 "type": "string",
-                "description": "User's mobile phone",
+                "description": "User's mobilePhone",
                 "example": "+380671234567"
               },
               "accessToken": {
@@ -1263,9 +1263,9 @@
             "description": "User's city & region",
             "example": "Akhtyrka, Sumy "
           },
-          "mobile phone": {
+          "mobilePhone": {
             "type": "string",
-            "description": "User's mobile phone",
+            "description": "User's mobilePhone",
             "example": "+380671234567"
           },
           "token": {
