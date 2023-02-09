@@ -8,7 +8,7 @@ const deleteOwnPet = async (req, res) => {
   if (!deletedPet) {
     throw HttpError(404);
   }
-  res.json({ message: "Pet deleted" });
+  res.status(200).json({ data: deletedPet, message: "Pet deleted" });
 };
 
 module.exports = {
