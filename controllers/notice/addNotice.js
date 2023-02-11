@@ -5,7 +5,6 @@ const { addNoticeLostFoundSchema } = require("../../schemas/noticeLostFound");
 const { addNoticeGoodHandsSchema } = require("../../schemas/noticesGoodHands");
 const { HttpError } = require("../../middlewares");
 
-
 const validateBody = (data) => {
   switch (data.type) {
     case "lost/found":
@@ -21,7 +20,6 @@ const validateBody = (data) => {
 
 const addNotice = async (req, res, next) => {
   const { type } = req.body;
-  console.log(req.body);
 
   if (!type) {
     next(HttpError(400, "Invalid notice type"));

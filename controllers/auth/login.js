@@ -44,6 +44,8 @@ const login = async (req, res, next) => {
     expiresIn,
     name: user.name,
     email: user.email,
+    favorite: user.favorite,
+    id: user._id,
   });
 };
 
