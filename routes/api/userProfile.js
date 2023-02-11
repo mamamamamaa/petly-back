@@ -5,12 +5,12 @@ const upload = require("../../utils/multer");
 
 const router = express.Router();
 
-router.use(authenticate);
+// router.use(authenticate);
 
-router.get('/', ctrl.getUserProfile);
+router.get('/', authenticate, ctrl.getUserProfile);
 
-router.post('/', upload.single('pictureURL'), ctrl.addOwnPet);
+router.post('/', authenticate, upload.single('pictureURL'), ctrl.addOwnPet);
 
-router.delete('/:ownPetId', ctrl.deleteOwnPet);
+router.delete('/:ownPetId', authenticate, ctrl.deleteOwnPet);
 
 module.exports = router;
