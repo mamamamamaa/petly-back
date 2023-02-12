@@ -1,12 +1,17 @@
-const { Notice } = require("../../models/notice");
+const { User } = require("../../models/user");
 const { HttpError } = require("../../middlewares");
 
 const deleteFavNotice = async (req, res) => {
   const { noticeId } = req.params;
+  const { _id: user } = req.user;
 
-  const deletedNotice = await Notice.findByIdAndUpdate(noticeId, {
-    favorite: false,
-  });
+  const deletedNotice = await User.findByIdAndUpdate(user, {
+    $pull: {
+      favorite: noticeId
+    }
+  }, {
+    new: true
+  })
 
   if (!deletedNotice) {
     throw HttpError(404);
