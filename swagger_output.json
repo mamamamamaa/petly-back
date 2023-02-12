@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.4",
+    "version": "1.0.5",
     "title": "REST API for Petly-project",
     "description": "Back-end endpoints for Petly-project"
   },
@@ -242,7 +242,7 @@
           "description": "Update user info",
           "required": true,
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateRequest"
               }
@@ -301,6 +301,94 @@
           },
           "401": {
             "description": "Not authorized"
+          }
+        }
+      }
+    },
+    "/api/auth/verify": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Update token",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "User's verificationToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refreshToken": {
+                    "type": "string",
+                    "description": "Refresh token",
+                    "example": "  5a1ds1f5sa15sc5x1c..."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/verify/{verificationToken}": {
+      "get": {
+        "tags": ["Auth"],
+        "description": "Update access token",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "message": "Verification mail has successfully send"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "message": "Missing required field email"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "User e-mail",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email",
+                    "format": "email"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1491,11 +1579,6 @@
             "type": "date",
             "description": "User's birthday",
             "example": "01.01.2021"
-          },
-          "avatarURL": {
-            "type": "string",
-            "description": "User's avatar",
-            "format": "binary"
           }
         }
       }
