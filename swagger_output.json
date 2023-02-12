@@ -1550,11 +1550,6 @@
       "UpdateRequest": {
         "type": "object",
         "properties": {
-          "password": {
-            "type": "string",
-            "description": "User's password",
-            "example": "$2a$10$n6y49/m2HoNGox8E82NugOcxd37cNs3nbIz/TSXVC36"
-          },
           "email": {
             "type": "string",
             "description": "User's email",
