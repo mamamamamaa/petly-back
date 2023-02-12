@@ -3,11 +3,7 @@ const { Notice } = require("../../models/notice");
 const getNoticeById = async (req, res) => {
   const { noticeId } = req.params;
 
-  const result = await Notice.findById({ _id: noticeId })
-  //   .populate("owner", {
-  //   email: 1,
-  //   mobilePhone: 1,
-  // });
+  const result = await Notice.findById({ _id: noticeId });
 
   if (result) {
     res.json(result);
