@@ -14,14 +14,14 @@ const login = async (req, res, next) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    next(HttpError(409, "Email or password invalid"));
+    next(HttpError(409, "Email invalid"));
     return;
   }
 
   const comparePassword = await bcrypt.compare(password, user.password);
 
   if (!comparePassword) {
-    next(HttpError(409, "Email or password invalid"));
+    next(HttpError(409, "Password incorrect"));
     return;
   }
 

@@ -1,6 +1,4 @@
 const Joi = require("joi");
-const { emailRegex, mobilePhoneRegex } = require("../helpers");
-
 
 const addNoticeSellSchema = Joi.object({
   name: Joi.string().min(1).max(20),
@@ -10,8 +8,6 @@ const addNoticeSellSchema = Joi.object({
   price: Joi.number().required(),
   sex: Joi.string().valid("male", "female"),
   place: Joi.string().min(3).max(16).alphanum(),
-  email: Joi.string().pattern(emailRegex).required(),
-  phone: Joi.string().pattern(mobilePhoneRegex).required(),
   comments: Joi.string().min(6).max(100),
   type: Joi.string().valid("sell").required(),
 });

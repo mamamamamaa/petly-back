@@ -5,26 +5,26 @@ const LostSchema = new mongoose.Schema({
   },
   photoUrl: {
     type: String,
-    },
-    name: {
-        type: String
-    },
-   breed: {
+  },
+  name: {
+    type: String
+  },
+  breed: {
     type: String,
-    },
-   place: {
+  },
+  place: {
     type: String,
   },
   dateOfBirth: {
     type: String
   },
-   comments: {
-        type: String,
-        required: true,
-    },
+  comments: {
+    type: String,
+    required: true,
+  },
   sex:
     { type: String, enum: ["Male", "Female"] },
-   
+
   cloudinary_id: {
     type: String,
   },
@@ -32,4 +32,4 @@ const LostSchema = new mongoose.Schema({
 
 const LostFound = mongoose.model("lostFound", LostSchema);
 
-module.exports = {LostFound};
+module.exports = { LostFound };

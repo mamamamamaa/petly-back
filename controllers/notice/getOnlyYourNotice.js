@@ -1,4 +1,4 @@
-const Notice = require("../../models/notice");
+const { Notice } = require("../../models/notice");
 
 const getOnlyYourNotice = async (req, res) => {
   console.dir(req);
