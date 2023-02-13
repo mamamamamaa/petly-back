@@ -10,6 +10,19 @@ const getFavoriteNotices = async (req, res) => {
   } = req.query;
   const skip = (page - 1) * limit;
 
+  console.log(!Number.isNaN(page));
+
+  if (page < 1 || limit < 1) {
+    throw HttpError(400)
+  }
+  if (!Number.isNaN(page) || !Number.isNaN(limit)) {
+    throw HttpError(400, "Page or limit isn't number")
+  }
+
+  if (limit > 100) {
+    throw HttpError(400, "Page limit max 100")
+  }
+
 
   if (!favorite) {
     return res.status(400).json({
