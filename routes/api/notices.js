@@ -15,15 +15,17 @@ const {
   getOnlyYourNotice,
 } = require("../../controllers/notice");
 
+router.get("/favorite", authenticate, getFavoriteNotices);
+
+router.get("/", authenticate, getOnlyYourNotice);
+router.post("/", authenticate, upload.single("photoUrl"), addNotice);
 router.get("/paginateNotice", paginateNotice);
 router.get("/searchOneTitle", searchOneTitle);
 router.get("/searchManyTitles", searchManyTitles);
-router.get("/favorite", authenticate, getFavoriteNotices);
+
 router.patch("/addfavorite/:noticeId", authenticate, addNoticeFavorite);
 router.patch("/delfavorite/:noticeId", authenticate, delNoticeFavorite);
-router.delete("/:noticeId", authenticate, deleteNoticeById);
-router.post("/", authenticate, upload.single("photoUrl"), addNotice);
-router.get("/:noticeId", getNoticeById);
-router.get("/", authenticate, getOnlyYourNotice);
+router.delete("/ads/:noticeId", authenticate, deleteNoticeById);
+router.get("/ads/:noticeId", getNoticeById);
 
 module.exports = router;

@@ -4,7 +4,9 @@ const { HttpError } = require("../../middlewares");
 
 const deleteNoticeById = async (req, res) => {
   const { id } = req.params;
-  const result = await Notice.findOneAndDelete(id);
+  const { _id: owner } = req.user;
+
+  const result = await Notice.findOneAndDelete({ $and: [{ id }, { owner }] });
   if (!result) {
     throw HttpError(404);
   }

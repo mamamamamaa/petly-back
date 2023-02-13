@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "title": "REST API for Petly-project",
     "description": "Back-end endpoints for Petly-project"
   },
@@ -683,7 +683,7 @@
         }
       }
     },
-    "/api/notices/{noticeId}": {
+    "/api/notices/ads/{noticeId}": {
       "get": {
         "tags": ["Notice"],
         "description": "Get notice by id",
