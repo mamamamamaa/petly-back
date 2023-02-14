@@ -8,11 +8,11 @@ const { HttpError } = require("../../middlewares");
 const validateBody = (data) => {
   switch (data.type) {
     case "lost/found":
-      return addNoticeLostFoundSchema.validate(data);
+      return addNoticeLostFoundSchema.validate(data, { abortEarly: false });
     case "good-hands":
-      return addNoticeGoodHandsSchema.validate(data);
+      return addNoticeGoodHandsSchema.validate(data, { abortEarly: false });
     case "sell":
-      return addNoticeSellSchema.validate(data);
+      return addNoticeSellSchema.validate(data, { abortEarly: false });
     default:
       return { error: "Invalid type of notice" };
   }

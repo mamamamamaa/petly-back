@@ -7,9 +7,7 @@ const getFavoriteNotices = async (req, res) => {
   const { page = 1, limit = 20 } = req.query;
   const skip = (page - 1) * limit;
 
-  console.log(!Number.isNaN(page));
-
-  if (page < 1 || limit < 1) {
+   if (page < 1 || limit < 1) {
     throw HttpError(400);
   }
   if (Number.isNaN(page) || Number.isNaN(limit)) {
