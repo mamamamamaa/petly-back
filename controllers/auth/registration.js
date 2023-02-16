@@ -28,6 +28,7 @@ const register = async (req, res, next) => {
 
   res.status(201).json({
     message: "Verify your account by email",
+    email,
   });
 };
 
