@@ -65,7 +65,7 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const joiSignupSchema = Joi.object({
-  password: Joi.string().min(6).max(32).pattern(passwordRegex).required(),
+  password: Joi.string().min(7).max(32).pattern(passwordRegex).required(),
   email: Joi.string().pattern(emailRegex).required(),
   name: Joi.string().required(),
   // TODO: add regexp for city field kinda "строка в форматі Місто, Область. Наприклад: Brovary, Kyiv або Akhtyrka, Sumy "

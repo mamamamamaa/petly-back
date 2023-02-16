@@ -43,7 +43,6 @@ const getNews = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     throw HttpError(400);
   }
 };
