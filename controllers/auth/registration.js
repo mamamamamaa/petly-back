@@ -3,7 +3,6 @@ const { sgMail } = require("../../helpers");
 const { User } = require("../../models/user");
 const { HttpError } = require("../../middlewares");
 const { verificationMessage } = require("../../helpers");
-const { generateAccessToken, generateRefreshToken } = require("../../helpers");
 
 const register = async (req, res, next) => {
   const { email, password } = req.body;
