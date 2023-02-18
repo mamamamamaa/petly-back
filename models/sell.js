@@ -5,25 +5,26 @@ const SellSchema = new mongoose.Schema({
   },
   photoUrl: {
     type: String,
-    },
-    name: {
-        type: String
-    },
-   breed: {
+  },
+  name: {
+    type: String
+  },
+  breed: {
     type: String,
-    },
-   place: {
+  },
+  place: {
     type: String,
-    },
-   price: {
+  },
+  price: {
     type: String,
-    },
-    comments: {
-        type: String
-    },
+    required: true,
+  },
+  comments: {
+    type: String
+  },
   cloudinary_id: {
     type: String,
   },
 });
 const Sell = mongoose.model("sell", SellSchema)
-module.exports = {Sell};
+module.exports = { Sell };
