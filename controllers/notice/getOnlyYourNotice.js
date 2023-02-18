@@ -2,10 +2,10 @@ const { HttpError } = require("../../middlewares");
 const { Notice } = require("../../models/notice");
 
 const getOnlyYourNotice = async (req, res) => {
-  console.dir(req);
   const { _id: owner } = req.user;
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
+  const totalCount = await Notice.count({ owner });
   const contacts = await Notice.find(
     { owner },
     {},
@@ -26,7 +26,7 @@ const getOnlyYourNotice = async (req, res) => {
     throw HttpError(400, "Page limit max 100");
   }
 
-  res.status(200).json({ contacts, status: "succsess" });
+  res.status(200).json({ totalCount, items: contacts });
 };
 
 module.exports = { getOnlyYourNotice };

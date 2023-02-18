@@ -7,7 +7,7 @@ const getFavoriteNotices = async (req, res) => {
   const { page = 1, limit = 20 } = req.query;
   const skip = (page - 1) * limit;
 
-   if (page < 1 || limit < 1) {
+  if (page < 1 || limit < 1) {
     throw HttpError(400);
   }
   if (Number.isNaN(page) || Number.isNaN(limit)) {
@@ -26,6 +26,7 @@ const getFavoriteNotices = async (req, res) => {
     });
   }
 
+  const totalCount = favorite.length;
   const favNotices = await Notice.find(
     { _id: { $in: favorite.map((notice) => mongoose.Types.ObjectId(notice)) } },
     "-createdAt -updatedAt",
@@ -36,7 +37,7 @@ const getFavoriteNotices = async (req, res) => {
     throw HttpError(404);
   }
 
-  res.json(favNotices);
+  res.json({ totalCount, items: favNotices });
 };
 
 module.exports = {
