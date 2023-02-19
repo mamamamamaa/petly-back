@@ -2,7 +2,7 @@ const { Notice } = require("../../models/notice");
 const { HttpError } = require("../../middlewares");
 
 const paginateNotice = async (req, res) => {
-  const { page = 1, limit = 8, type = null } = req.query;
+  const { page = 1, limit = 8, type = null, query = "" } = req.query;
   const skip = (page - 1) * limit;
 
   if (page < 1 || limit < 1) {
@@ -18,13 +18,14 @@ const paginateNotice = async (req, res) => {
 
   const totalCount = await Notice.count({ type });
   const result = await Notice.find(
-    { type },
+    { type, title: { $regex: query, $options: "gi" } },
     {},
     {
       skip,
       limit: Number(limit),
     }
-  );
+  ).exec();
+
   if (!result) {
     throw HttpError(404);
   }
