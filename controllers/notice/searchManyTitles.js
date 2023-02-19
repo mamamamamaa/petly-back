@@ -2,8 +2,9 @@ const { Notice } = require("../../models/notice");
 const { HttpError } = require("../../middlewares");
 
 const searchManyTitles = async (req, res) => {
-  const { title = null } = req.query;
+  const { type, title = null } = req.query;
   const result = await Notice.find({
+    type,
     title: { $regex: title, $options: "gi" },
   }).exec();
   if (!result) {
