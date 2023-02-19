@@ -16,6 +16,7 @@ const paginateNotice = async (req, res) => {
     throw HttpError(400, "Page limit max 100");
   }
 
+  const totalCount = await Notice.count({ type });
   const result = await Notice.find(
     { type },
     {},
@@ -28,7 +29,7 @@ const paginateNotice = async (req, res) => {
     throw HttpError(404);
   }
 
-  res.status(200).json(result);
+  res.status(200).json({ totalCount, items: result });
 };
 
 module.exports = {
