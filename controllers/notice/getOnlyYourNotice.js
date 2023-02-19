@@ -3,12 +3,11 @@ const { Notice } = require("../../models/notice");
 
 const getOnlyYourNotice = async (req, res) => {
   const { _id: owner } = req.user;
-  const { page = 1, limit = 10, query = "" } = req.query;
+  const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
-  const regex = new RegExp(`.*${query}.*`, "i");
   const totalCount = await Notice.count({ owner });
   const contacts = await Notice.find(
-    { owner, title: { $regex: regex } },
+    { owner },
     {},
     {
       skip,
