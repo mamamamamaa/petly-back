@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const getFavoriteNotices = async (req, res) => {
   const { favorite } = req.user;
-  const { page = 1, limit = 20, query = "" } = req.query;
+  const { page = 1, limit = 20 } = req.query;
   const skip = (page - 1) * limit;
 
   if (page < 1 || limit < 1) {
@@ -26,13 +26,9 @@ const getFavoriteNotices = async (req, res) => {
     });
   }
 
-  const regex = new RegExp(`.*${query}.*`, "i");
   const totalCount = favorite.length;
   const favNotices = await Notice.find(
-    {
-      _id: { $in: favorite.map((notice) => mongoose.Types.ObjectId(notice)) },
-      title: { $regex: regex },
-    },
+    { _id: { $in: favorite.map((notice) => mongoose.Types.ObjectId(notice)) } },
     "-createdAt -updatedAt",
     { skip, limit }
   );
