@@ -3,15 +3,12 @@ const { deleteNoticeById } = require("./deleteNoticeById");
 const { deleteFavNotice } = require("./deleteFavNotice");
 const { getNoticeById } = require("./getNoticeById");
 const { getFavoriteNotices } = require("./getFavoriteNotices");
-const {
-  addNoticeFavorite,
-  delNoticeFavorite,
-} = require("./updateNoticeFavorite");
-const { searchOneTitle } = require("./searchOneTitle");
+const { addNoticeFavorite } = require("./addNoticeFavorite");
+const { delNoticeFavorite } = require("./delNoticeFavorite");
 const { paginateNotice } = require("./paginateNotice");
-const { searchManyTitles } = require("./searchManyTitles");
+const { searchNotice } = require("./searchNotice");
 const { addNotice } = require("./addNotice");
-const { getOnlyYourNotice } = require("./getOnlyYourNotice");
+const { getOnlyUserNotice } = require("./getOnlyUserNotice");
 
 module.exports = {
   deleteFavNotice: ctrlWrapper(deleteFavNotice),
@@ -20,9 +17,8 @@ module.exports = {
   getFavoriteNotices: ctrlWrapper(getFavoriteNotices),
   addNoticeFavorite: ctrlWrapper(addNoticeFavorite),
   delNoticeFavorite: ctrlWrapper(delNoticeFavorite),
-  searchOneTitle: ctrlWrapper(searchOneTitle),
   paginateNotice: ctrlWrapper(paginateNotice),
-  searchManyTitles: ctrlWrapper(searchManyTitles),
+  searchNotice: ctrlWrapper(searchNotice),
   addNotice: ctrlWrapper(addNotice),
-  getOnlyYourNotice: ctrlWrapper(getOnlyYourNotice),
+  getOnlyUserNotice: ctrlWrapper(getOnlyUserNotice),
 };

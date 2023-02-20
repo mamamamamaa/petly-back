@@ -11,7 +11,6 @@ const paginateNotice = async (req, res) => {
   if (Number.isNaN(page) || Number.isNaN(limit)) {
     throw HttpError(400, "Page or limit isn't number");
   }
-
   if (limit > 100) {
     throw HttpError(400, "Page limit max 100");
   }
@@ -28,7 +27,6 @@ const paginateNotice = async (req, res) => {
   if (!result) {
     throw HttpError(404);
   }
-
   res.status(200).json({ totalCount, items: result });
 };
 

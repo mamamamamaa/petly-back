@@ -10,18 +10,15 @@ const generateAccessToken = (user) => {
     id: user._id,
     type: "accessToken",
   };
-
   return jwt.sign(payload, ACCESS_TOKEN_SECRET_KEY, {
     expiresIn,
   });
 };
-
 const generateRefreshToken = (user) => {
   const payload = {
     id: user._id,
     type: "refreshToken",
   };
-
   return jwt.sign(payload, REFRESH_TOKEN_SECRET_KEY);
 };
 
