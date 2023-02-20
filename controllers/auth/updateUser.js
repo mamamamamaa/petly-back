@@ -14,7 +14,7 @@ const updateUser = async (req, res, next) => {
     next(HttpError(409, "Email in use"));
     return;
   }
-
+ console.log("plus")
   const updatedUser = await User.findByIdAndUpdate(_id, req.body,
 
     { new: true }
