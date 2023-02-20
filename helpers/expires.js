@@ -1,6 +1,5 @@
 const calculateExpiresTime = (time) => {
   const amountOfTime = parseInt(time);
-
   const typeOfTime = time.replace(String(amountOfTime), "");
 
   switch (typeOfTime) {

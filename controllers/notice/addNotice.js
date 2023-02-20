@@ -17,28 +17,23 @@ const validateBody = (data) => {
       return { error: "Invalid type of notice" };
   }
 };
-
 const addNotice = async (req, res, next) => {
   const { type } = req.body;
-
   if (!type) {
     next(HttpError(400, "Invalid notice type"));
     return;
   }
 
   const { error } = validateBody(req.body);
-
   if (error) {
     next(HttpError(400, error));
     return;
   }
 
   const image = await cloudinary.uploader.upload(req.file.path);
-
   const photoUrl = image.secure_url;
   const { _id: owner, email, mobilePhone } = req.user;
   const result = await Notice.create({ ...req.body, owner, email, mobilePhone, photoUrl });
-
   res.status(201).json(result);
 };
 

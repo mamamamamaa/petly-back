@@ -14,12 +14,7 @@ const updateUser = async (req, res, next) => {
     return;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(
-    _id,
-    req.body,
-
-    { new: true }
-  );
+  const updatedUser = await User.findByIdAndUpdate(_id, req.body, { new: true });
 
   if (!updatedUser) {
     throw HttpError(404);
