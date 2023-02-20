@@ -3,7 +3,8 @@ const { HttpError } = require("../../middlewares");
 
 const {
   // X_RAPID_API_HOST, X_RAPID_API_URL, X_RAPID_API_KEY,
-  NEWSSERVER, NEWSKEY
+  NEWSSERVER,
+  NEWSKEY,
 } = process.env;
 
 const getNews = async (req, res) => {
@@ -18,6 +19,7 @@ const getNews = async (req, res) => {
       pageNumber: page,
       pageSize: limit,
       apiKey: NEWSKEY,
+      sortBy: "publishedAt",
       // autoCorrect: "true",
       // fromPublishedDate: "null",
       // toPublishedDate: "null",
