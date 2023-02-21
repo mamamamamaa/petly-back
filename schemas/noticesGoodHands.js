@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const addNoticeGoodHandsSchema = Joi.object({
+  name: Joi.string().min(1).max(20),
   title: Joi.string().min(2).max(50).required(),
-  title: Joi.string().min(2).max(20).required(),
   breed: Joi.string().min(2).max(16),
   dateOfBirth: Joi.date(),
   price: Joi.number(),
