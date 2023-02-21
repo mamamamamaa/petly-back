@@ -12,6 +12,8 @@ const noticeSchema = new Schema(
     type: { type: String, enum: ["lost/found", "good-hands", "sell"] },
     price: { type: Number },
     comments: { type: String },
+    email: { type: String },
+    mobilePhone: { type: String },
     favorite: {
       type: Boolean,
       default: false,
