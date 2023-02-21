@@ -14,7 +14,7 @@ const getNews = async (req, res) => {
       apiKey: NEWSKEY,
       sortBy: "publishedAt",
     },
-  }
+  };
 
   if (page < 1 || limit < 1) {
     throw HttpError(400);
@@ -25,7 +25,6 @@ const getNews = async (req, res) => {
   if (limit > 100) {
     throw HttpError(400, "Page limit max 100");
   }
-
   try {
     const dynamicNews = await axios.request(options);
     res.json({

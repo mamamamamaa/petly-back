@@ -33,7 +33,13 @@ const addNotice = async (req, res, next) => {
   const image = await cloudinary.uploader.upload(req.file.path);
   const photoUrl = image.secure_url;
   const { _id: owner, email, mobilePhone } = req.user;
-  const result = await Notice.create({ ...req.body, owner, email, mobilePhone, photoUrl });
+  const result = await Notice.create({
+    ...req.body,
+    owner,
+    email,
+    mobilePhone,
+    photoUrl,
+  });
   res.status(201).json(result);
 };
 
