@@ -1,13 +1,13 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
-const ownPetSchema = new Schema ({
+const ownPetSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Set name for your pet'],
     },
-    dateOfBirth:  String,
-    breed:  String,
+    dateOfBirth: String,
+    breed: String,
     comments: String,
     pictureURL: String,
     owner: {
@@ -16,7 +16,7 @@ const ownPetSchema = new Schema ({
         required: true,
     },
 },
-    {versionKey: false}
+    { versionKey: false }
 );
 
 ownPetSchema.post("save", handleMongooseError);

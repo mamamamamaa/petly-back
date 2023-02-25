@@ -17,17 +17,14 @@ const validateBody = (data) => {
       return { error: "Invalid type of notice" };
   }
 };
-
 const addNotice = async (req, res, next) => {
   const { type } = req.body;
-
   if (!type) {
     next(HttpError(400, 'Invalid notice type'));
     return;
   }
 
   const { error } = validateBody(req.body);
-
   if (error) {
     next(HttpError(400, error));
     return;

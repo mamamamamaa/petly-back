@@ -12,32 +12,24 @@ const { EXPIRES_IN } = process.env;
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-
   if (!user) {
     next(HttpError(409, "Email invalid"));
     return;
   }
-
   const comparePassword = await bcrypt.compare(password, user.password);
-
   if (!comparePassword) {
     next(HttpError(409, "Password incorrect"));
     return;
   }
-
   if (!user.verify) {
     next(409, "You are not verified");
     return;
   }
 
   const accessToken = generateAccessToken(user);
-
   const refreshToken = generateRefreshToken(user);
-
   await User.findByIdAndUpdate(user._id, { accessToken, refreshToken });
-
   const expiresIn = calculateExpiresTime(EXPIRES_IN);
-
   res.json({
     accessToken,
     refreshToken,

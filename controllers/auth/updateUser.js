@@ -4,17 +4,17 @@ const { User } = require("../../models/user");
 const updateUser = async (req, res, next) => {
   const { _id } = req.user;
   const { email } = req.body;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({
+    $or: [{ email }],
+    _id: { $ne: _id },
+  });
 
   if (user) {
     next(HttpError(409, "Email in use"));
     return;
   }
 
-  const updatedUser = await User.findByIdAndUpdate(_id, req.body,
-
-    { new: true }
-  );
+  const updatedUser = await User.findByIdAndUpdate(_id, req.body, { new: true });
 
   if (!updatedUser) {
     throw HttpError(404);

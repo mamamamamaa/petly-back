@@ -9,7 +9,6 @@ const addOwnPet = async (req, res) => {
   }
 
   const picture = await cloudinary.uploader.upload(req.file.path);
-
   const pictureURL = picture.secure_url;
   const { _id: owner } = req.user;
   const newOwnPet = await OwnPet.create({ ...req.body, owner, pictureURL });
