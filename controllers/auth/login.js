@@ -12,13 +12,13 @@ const { EXPIRES_IN } = process.env;
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user) {
-    next(HttpError(409, "Email invalid"));
+  if (!email || !password || user === null) {
+    next(HttpError(401, "Email or password is wrong"));
     return;
   }
   const comparePassword = await bcrypt.compare(password, user.password);
   if (!comparePassword) {
-    next(HttpError(409, "Password incorrect"));
+    next(HttpError(401, "Password incorrect"));
     return;
   }
   if (!user.verify) {

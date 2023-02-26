@@ -5,7 +5,11 @@ const { HttpError } = require("../../middlewares");
 const { verificationMessage } = require("../../helpers");
 
 const register = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
+  if (!email || !password || !name) {
+    res.status(400).json({ message: "Name, email or password not found" });
+    return;
+  }
   const user = await User.findOne({ email });
   if (user) {
     next(HttpError(409, "Email in use"));
@@ -22,6 +26,7 @@ const register = async (req, res, next) => {
   });
   res.status(201).json({
     message: "Verify your account by email",
+    name,
     email,
   });
 };
