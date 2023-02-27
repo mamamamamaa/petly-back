@@ -31,26 +31,32 @@ const addNotice = async (req, res, next) => {
   }
   // console.log(req);
   if (req.files.length > 0) {
-    try {
-      const ac = await req.files.reduce(async (ac, image) => {
-        const result = await cloudinary.uploader.upload(image.path);
-        const photoUrl = result.secure_url;
-        ac.push(photoUrl);
-        return ac;
-      }, []);
-
-      const { _id: owner, email, mobilePhone } = req.user;
-      const result = await Notice.create({
-        ...req.body,
-        owner,
-        email,
-        mobilePhone,
-        photoUrl: ac,
+    const photoUrlReduced = req.files.reduce((ac, image) => {
+      return new Promise((resolve, reject) => {
+        cloudinary.uploader.upload(image.path, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            const photoUrl = result.secure_url;
+            console.log(photoUrl);
+            console.log(ac);
+            // console.log(image);
+            const newAc = ac.concat(photoUrl);
+            resolve(newAc);
+          }
+        });
       });
-      res.status(201).json(result);
-    } catch (error) {
-      console.error(error);
-    }
+    }, []);
+
+    const { _id: owner, email, mobilePhone } = req.user;
+    const result = await Notice.create({
+      ...req.body,
+      owner,
+      email,
+      mobilePhone,
+      photoUrl: photoUrlReduced,
+    });
+    res.status(201).json(result);
   } else {
     const { _id: owner, email, mobilePhone } = req.user;
     const result = await Notice.create({
@@ -61,8 +67,6 @@ const addNotice = async (req, res, next) => {
     });
     res.status(201).json(result);
   }
-
-
 };
 
 module.exports = {
