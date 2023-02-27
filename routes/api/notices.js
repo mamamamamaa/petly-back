@@ -16,7 +16,7 @@ const {
 
 router.get("/favorite", authenticate, getFavoriteNotices);
 router.get("/", authenticate, getOnlyUserNotice);
-router.post("/", authenticate, upload.single("photoUrl"), addNotice);
+router.post("/", authenticate, upload.array("photoUrl", 5), addNotice);
 router.get("/paginateNotice", paginateNotice);
 router.get("/searchManyTitles", searchNotice);
 router.patch("/addfavorite/:noticeId", authenticate, addNoticeFavorite);
