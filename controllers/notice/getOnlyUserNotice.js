@@ -24,7 +24,9 @@ const getOnlyUserNotice = async (req, res) => {
       skip,
       limit,
     }
-  ).populate("owner", "_id email");
+  )
+    .sort({ createdAt: -1 })
+    .populate("owner", "_id email");
   res.status(200).json({ totalCount, items: contacts });
 };
 

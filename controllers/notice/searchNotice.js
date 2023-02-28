@@ -36,7 +36,9 @@ const searchNotice = async (req, res, next) => {
     const result = await Notice.find({
       title: { $regex: title, $options: "gi" },
       _id: { $in: favorite.map((notice) => mongoose.Types.ObjectId(notice)) },
-    }).exec();
+    })
+      .sort({ createdAt: -1 })
+      .exec();
     res.status(200).json(result);
     return;
   }
@@ -44,7 +46,9 @@ const searchNotice = async (req, res, next) => {
     const result = await Notice.find({
       owner: _id,
       title: { $regex: title, $options: "gi" },
-    }).exec();
+    })
+      .sort({ createdAt: -1 })
+      .exec();
     res.status(200).json(result);
     return;
   }
