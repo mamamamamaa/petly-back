@@ -1,15 +1,15 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema } = require('mongoose');
 
 const noticeSchema = new Schema(
   {
     title: { type: String, required: true },
-    photoUrl: { type: String },
+    photoUrl: { type: Array },
     breed: { type: String },
     place: { type: String },
     dateOfBirth: { type: Date },
     name: { type: String },
-    sex: { type: String, enum: ["male", "female"] },
-    type: { type: String, enum: ["lost/found", "good-hands", "sell"] },
+    sex: { type: String, enum: ['male', 'female'] },
+    type: { type: String, enum: ['lost/found', 'good-hands', 'sell'] },
     price: { type: Number },
     comments: { type: String },
     email: { type: String },
@@ -20,16 +20,16 @@ const noticeSchema = new Schema(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "user",
+      ref: 'user',
       required: true,
     },
     cloudinary_id: {
       type: String,
     },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 );
 
-const Notice = model("notice", noticeSchema);
+const Notice = model('notice', noticeSchema);
 
 module.exports = { Notice };

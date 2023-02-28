@@ -9,14 +9,12 @@ module.exports = multer({
       cb(new Error('No file uploaded'), false);
       return;
     }
-    // console.log( file);
       const ext = path.extname(file.originalname);
     if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
       cb(new Error('File type is not supported'), false);
       return;
     }
     cb(null, true);
-    
   },
   limits: {
     files: 5, // set maxCount to 5

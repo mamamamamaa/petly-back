@@ -4,6 +4,7 @@ const { addNoticeSellSchema } = require('../../schemas/noticesSell');
 const { addNoticeLostFoundSchema } = require('../../schemas/noticeLostFound');
 const { addNoticeGoodHandsSchema } = require('../../schemas/noticesGoodHands');
 const { HttpError } = require('../../middlewares');
+const util = require('util');
 
 const validateBody = (data) => {
   switch (data.type) {
@@ -29,32 +30,21 @@ const addNotice = async (req, res, next) => {
     next(HttpError(400, error));
     return;
   }
-  // console.log(req);
   if (req.files.length > 0) {
-    const photoUrlReduced = req.files.reduce((ac, image) => {
-      return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(image.path, (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            const photoUrl = result.secure_url;
-            console.log(photoUrl);
-            console.log(ac);
-            // console.log(image);
-            const newAc = ac.concat(photoUrl);
-            resolve(newAc);
-          }
-        });
-      });
-    }, []);
-
+    const cloudinaryUpload = util.promisify(cloudinary.uploader.upload);
+    const photoUrl = await Promise.all(
+      req.files.map(async (image) => {
+        const result = await cloudinaryUpload(image.path);
+        return result.secure_url;
+      }),
+    );
     const { _id: owner, email, mobilePhone } = req.user;
     const result = await Notice.create({
       ...req.body,
       owner,
       email,
       mobilePhone,
-      photoUrl: photoUrlReduced,
+      photoUrl,
     });
     res.status(201).json(result);
   } else {
