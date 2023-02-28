@@ -23,7 +23,7 @@ const paginateNotice = async (req, res) => {
       skip,
       limit: Number(limit),
     }
-  );
+  ).sort({ createdAt: -1 });
   if (!result) {
     throw HttpError(404);
   }

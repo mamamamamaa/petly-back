@@ -28,7 +28,7 @@ const getFavoriteNotices = async (req, res) => {
     { _id: { $in: favorite.map((notice) => mongoose.Types.ObjectId(notice)) } },
     "-createdAt -updatedAt",
     { skip, limit }
-  );
+  ).sort({ createdAt: -1 });
   if (!favNotices) {
     throw HttpError(404);
   }
