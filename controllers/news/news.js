@@ -3,23 +3,23 @@ const { HttpError } = require("../../middlewares");
 const { NEWSSERVER, NEWSKEY } = process.env;
 
 const getNews = async (req, res) => {
-  const { page = 1, limit = 6, query = "pets" } = req.query;
+  const { pageNews = 1, limit = 6, query = "pets" } = req.query;
   const options = {
     method: "GET",
     url: NEWSSERVER,
     params: {
       q: query,
-      pageNumber: page,
+      page: pageNews,
       pageSize: limit,
       apiKey: NEWSKEY,
       sortBy: "publishedAt",
     },
   };
 
-  if (page < 1 || limit < 1) {
+  if (pageNews < 1 || limit < 1) {
     throw HttpError(400);
   }
-  if (Number.isNaN(page) || Number.isNaN(limit)) {
+  if (Number.isNaN(pageNews) || Number.isNaN(limit)) {
     throw HttpError(400, "Page or limit isn't number");
   }
   if (limit > 100) {
