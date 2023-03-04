@@ -5,7 +5,7 @@ const {
 } = require("../../helpers");
 const { User } = require("../../models/user");
 
-const { BASE_URL } = process.env;
+const { CLIENT_URL } = process.env;
 
 const googleAuth = async (req, res) => {
     const { _id } = req.user
@@ -29,9 +29,11 @@ const googleAuth = async (req, res) => {
         secure: true,
         signed: true
     })
-
-    res.redirect(`${BASE_URL}`)
-
+    // DEV
+    // res.redirect("http://localhost:3000/")
+    
+    // PROD
+    res.redirect(`${CLIENT_URL}`)
 }
 
 module.exports = googleAuth

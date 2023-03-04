@@ -14,18 +14,31 @@ const googleParams = {
     passReqToCallback: true,
 }
 
-const googleCallback = async (req, profile, done) => {
+const googleCallback = async (req, accessToken, refreshToken, profile, done) => {
     try {
-        console.log(profile);
+        console.log("PROFILE", profile);
         const { email, displayName } = profile;
+        console.log("PROFILE_EMAIL", email);
+        console.log("PROFILE_displayName", displayName);
+
         const user = await User.findOne({ email })
         if (user) {
             return done(null, user)
         }
-        const hashpassword = bcrypt.hash(uuid(), 10)
-        const newUser = await User.create({ email, name: displayName, password: hashpassword })
+        const hashpassword = await bcrypt.hash(uuid(), 10)
+        const verificationToken = uuid()
+        const newUser = await User.create({
+            email,
+            name: displayName,
+            password: hashpassword,
+            verificationToken,
+            verify: true,
+            mobilePhone: "unknown",
+            city: "unknown"
+        })
         done(null, newUser)
     } catch (error) {
+        console.log(error);
         done(error)
     }
 }

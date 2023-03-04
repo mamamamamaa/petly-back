@@ -7,9 +7,10 @@ const upload = require("../../utils/multer");
 const router = express.Router();
 
 router.post("/signup", validationBody(schemas.joiSignupSchema), ctrl.register);
-router.get("/google", passport.authenticate("google", {
-  scope: ["email", "profile"]
-}))
+router.get("/google", passport.authenticate("google",
+  {
+    scope: ["email", "profile"]
+  }))
 router.get("/google/callback", passport.authenticate("google", { session: false }), ctrl.googleAuth)
 router.post("/login", validationBody(schemas.joiLoginSchema), ctrl.login);
 router.post("/token", validationBody(schemas.joiRefreshTokenSchema), ctrl.refresh);
