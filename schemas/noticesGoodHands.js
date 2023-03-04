@@ -4,7 +4,7 @@ const addNoticeGoodHandsSchema = Joi.object({
   name: Joi.string().min(1).max(20),
   title: Joi.string().min(2).max(50).required(),
   breed: Joi.string().min(2).max(16),
-  dateOfBirth: Joi.date(),
+  dateOfBirth: Joi.date().allow(""),
   price: Joi.number(),
   sex: Joi.string().valid("male", "female"),
   place: Joi.string().min(3).max(16).alphanum(),
