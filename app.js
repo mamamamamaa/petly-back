@@ -4,7 +4,6 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger_output.json");
-const cookieParser = require('cookie-parser');
 
 require("dotenv").config();
 
@@ -27,7 +26,6 @@ app.use(cors());
 app.use(logger(formatsLogger));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
 
 // ROUTES:
 app.use("/api/auth", authRouter);
