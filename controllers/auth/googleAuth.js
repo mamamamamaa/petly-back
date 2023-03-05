@@ -30,10 +30,10 @@ const googleAuth = async (req, res) => {
         signed: true
     })
     // DEV
-    // res.redirect("http://localhost:3000/")
+    res.redirect("http://localhost:3000/")
     
     // PROD
-    res.redirect(`${CLIENT_URL}`)
+    // res.redirect(`${CLIENT_URL}`)
 }
 
 module.exports = googleAuth
