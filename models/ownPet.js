@@ -9,7 +9,7 @@ const ownPetSchema = new Schema({
     dateOfBirth: String,
     breed: String,
     comments: String,
-    pictureURL: String,
+    pictureURL: Array,
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'user',

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(authenticate);
 router.get("/", ctrl.getUserProfile);
-router.post("/", upload.single("pictureURL"), ctrl.addOwnPet);
+router.post("/", upload.array("pictureURL", 5), ctrl.addOwnPet);
 router.delete("/:ownPetId", ctrl.deleteOwnPet);
 
 module.exports = router;
