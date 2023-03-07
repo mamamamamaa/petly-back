@@ -6,7 +6,7 @@ const noticeSchema = new Schema(
     photoUrl: { type: Array },
     breed: { type: String },
     place: { type: String },
-    dateOfBirth: { type: Date },
+    dateOfBirth: { type: String },
     name: { type: String },
     sex: { type: String, enum: ['male', 'female'] },
     type: { type: String, enum: ['lost/found', 'good-hands', 'sell'] },
