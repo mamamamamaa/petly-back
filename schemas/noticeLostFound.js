@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const addNoticeLostFoundSchema = Joi.object({
   title: Joi.string().min(2).max(50).required(),
-  name: Joi.string().min(1).max(20),
+  name: Joi.string().min(0).max(20),
   dateOfBirth: Joi.date().allow(""),
   breed: Joi.string().min(2).max(16),
   sex: Joi.string().valid("male", "female").required(),
