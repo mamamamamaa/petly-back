@@ -15,7 +15,7 @@ const ownPetCreateSchema = Joi.object({
     comments: Joi.string()
         .min(8)
         .max(120),
-    pictureURL: Joi.string()
+    pictureURL: Joi.array()
 });
 
 module.exports = {
