@@ -26,7 +26,7 @@ router.patch(
   upload.single("avatarURL"),
   ctrl.updateAvatar
 );
-router.get("/verify/:verificationToken", ctrl.verify);
+router.get("/verify/:verificationToken", ctrl.verify); // on sent mail letter click verify fires
 router.post("/verify", ctrl.reverify);
 
 router.get("/google", ctrl.googleAuth);

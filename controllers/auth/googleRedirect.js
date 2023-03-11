@@ -1,19 +1,23 @@
+const queryString = require('url-parse');
 const axios = require('axios');
-const URL = require('url');
-const queryString = require('query-string');
+// const URL = require("url");
 
-const googleRedirect = async (req, res) => {
+const googleRedirect = async (req, res) => { // response from google
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  console.log('ddddddddd');
+  console.log(req.originalUrl);
   const urlObj = new URL(fullUrl);
-  const urlParams = queryString.parse(urlObj.search);
-  const code = urlParams.code;
+  console.log(urlObj);
+  const urlParams = queryString.parse(urlObj.search); // urlObj.search - google access params from big object
+  const code = urlParams.code; // urlParams all google settings, code for access
+  // check code by debugger if no undefined, if no empty string
   const tokenData = await axios({
     url: `https://oauth2.googleapis.com/token`,
     method: 'post',
     data: {
       client_id: process.env.client_id,
       client_secret: process.env.client_secret,
-      redirect_uri: `${process.env.BASE_URL}/auth/google-redirect`,
+      redirect_uri: `${process.env.BASE_URL}/api/auth/google-redirect`,
       grant_type: 'authorization_code',
       code,
     },
