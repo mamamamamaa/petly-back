@@ -4,7 +4,6 @@ const axios = require('axios');
 
 const googleRedirect = async (req, res) => { // response from google
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  console.log('ddddddddd');
   console.log(req.originalUrl);
   const urlObj = new URL(fullUrl);
   console.log(urlObj);

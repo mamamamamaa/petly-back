@@ -18,7 +18,12 @@ const newsRouter = require("./routes/api/news");
 const noticesRouter = require("./routes/api/notices");
 const friendsRouter = require("./routes/api/friends");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'https://petly-front.onrender.com'],
+    methods: 'GET,POST,PUT,DELETE',
+  })
+);
 app.use(logger(formatsLogger));
 app.use(express.json());
 app.use(express.static("public"));

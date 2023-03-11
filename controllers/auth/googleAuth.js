@@ -23,7 +23,7 @@ const googleAuth = async (req, res) => { // request to google
     // we brake the chain here
     // where google can give a control
     // we pass here all params which named upper
-    `https://accounts.google.com/o/oath2/v2/auth?${stringifiedParams}`
+    `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
   );
 };
 
