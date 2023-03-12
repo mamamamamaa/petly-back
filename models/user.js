@@ -1,29 +1,29 @@
-const { Schema, model } = require("mongoose");
-const { handleMongooseError } = require("../helpers");
+const { Schema, model } = require('mongoose');
+const { handleMongooseError } = require('../helpers');
 
 const userSchema = new Schema(
   {
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, 'Password is required'],
       minlength: 6,
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       unique: true,
     },
     name: {
       type: String,
-      // required: true,
+      required: true,
     },
     city: {
       type: String,
-      // required: true,
+      required: true,
     },
     mobilePhone: {
       type: String,
-      // required: true,
+      required: true,
     },
     birthday: {
       type: String,
@@ -45,12 +45,12 @@ const userSchema = new Schema(
     },
     verificationToken: {
       type: String,
-      required: [true, "Verify token is required"],
+      required: [true, 'Verify token is required'],
     },
     favorite: [
       {
         type: Schema.Types.ObjectId,
-        ref: "notice",
+        ref: 'notice',
       },
     ],
   },
@@ -60,11 +60,9 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.post("save", handleMongooseError);
+userSchema.post('save', handleMongooseError);
 
-
-
-const User = model("user", userSchema);
+const User = model('user', userSchema);
 
 module.exports = {
   User,

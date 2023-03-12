@@ -15,10 +15,8 @@ const googleAuth = async (req, res) => { // request to google
     access_type: 'offline',
     prompt: 'consent', // service google thing
   };
-  console.log(params);
 
   const stringifiedParams = querystring.stringify(params);
-  console.log(stringifiedParams);
   return res.redirect(
     // we brake the chain here
     // where google can give a control
