@@ -46,30 +46,22 @@ const googleRedirect = async (req, res) => {
       mobilePhone: '',
       city: '',
       name: '',
+      favorite: [],
     });
   }
   const { password, city, name, mobilePhone, _id, favorite } = user;
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
-  await user.findByIdAndUpdate(user._id, { accessToken, refreshToken });
+  await User.findByIdAndUpdate(user._id, { accessToken, refreshToken });
   const expiresIn = calculateExpiresTime(EXPIRES_IN);
   return res.redirect(
     // redirect user to frontend
     `${process.env.CLIENT_URL}?accessToken=${accessToken}&refreshToken=${refreshToken}&expiresIn=${expiresIn}&password=${password}&email=${email}&name=${name}&mobilePhone=${mobilePhone}&city=${city}&id=${_id}&favorite=${favorite}`
   );
-
-  // our logic
-  // userData is a big object, also has a name property
-  // userData.data.email // go to dataBase if no user we register user here
-  // if he is, we pass it and give him a token
-  return res.redirect(
-    // redirect user to frontend
-    // point to the email or it can be token in query params
-    `${process.env.CLIENT_URL}?accessToken=${tokenData.data.access_token}`
-    // `${process.env.FRONTED_URL}?email=${userData.data.email}`
-    // point to the access_token token in query params
-    // google-redirect to follow user NOT to empty string on frontend
-    // `${process.env.FRONTED_URL}/google-redirect/?accessToken=${accessToken}&refreshToken=${refreshToken}`,
-  );
+  
 };
 module.exports = googleRedirect;
+//   // point to the access_token token in query params
+  //   // google-redirect to follow user NOT to empty string on frontend
+  //   // `${process.env.FRONTED_URL}/google-redirect/?accessToken=${accessToken}&refreshToken=${refreshToken}`,
+  // );
