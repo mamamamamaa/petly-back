@@ -8,6 +8,8 @@ const updateAvatar = require("./updateAvatar");
 const refresh = require("./refresh");
 const reverify = require("./reverify");
 const verify = require("./verify");
+const googleAuth = require('./googleAuth.js');
+const googleRedirect = require('./googleRedirect.js');
 
 module.exports = {
   login: ctrlWrapper(login),
@@ -19,4 +21,6 @@ module.exports = {
   refresh: ctrlWrapper(refresh),
   reverify: ctrlWrapper(reverify),
   verify: ctrlWrapper(verify),
+  googleAuth: ctrlWrapper(googleAuth),
+  googleRedirect: ctrlWrapper(googleRedirect),
 };
