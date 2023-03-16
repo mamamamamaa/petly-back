@@ -14,8 +14,8 @@ const authenticate = async (req, res, next) => {
     const user = await User.findById(id);
     if (
       !user ||
-      !user.accessToken ||
-      accessToken !== String(user.accessToken)
+      !user.accessToken
+      // || accessToken !== String(user.accessToken) // Different browsers view causes error the same account simultaneously
     ) {
       next(HttpError(401));
       return;
